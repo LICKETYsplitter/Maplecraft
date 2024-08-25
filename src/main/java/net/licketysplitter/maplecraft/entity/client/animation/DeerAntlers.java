@@ -1,18 +1,21 @@
-package net.licketysplitter.maplecraft.entity.client;
+package net.licketysplitter.maplecraft.entity.client.animation;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-public enum DeerVariant {
-    DOE(0),
-    BUCK(1);
+public enum DeerAntlers {
+    ZERO(0),
+    TWO(1),
+    FOUR(2),
+    SIX(3),
+    EIGHT(4);
 
-    private static DeerVariant[] BY_ID = Arrays.stream(values()).sorted(
-            Comparator.comparingInt(DeerVariant::getID)).toArray(DeerVariant[]::new);
+    private static DeerAntlers[] BY_ID = Arrays.stream(values()).sorted(
+            Comparator.comparingInt(DeerAntlers::getID)).toArray(DeerAntlers[]::new);
 
     private final int id;
 
-    DeerVariant(int id){
+    DeerAntlers(int id){
         this.id = id;
     }
 
@@ -20,7 +23,7 @@ public enum DeerVariant {
         return this.id;
     }
 
-    public static DeerVariant byID(int id){
+    public static DeerAntlers byID(int id){
         return BY_ID[id % BY_ID.length];
     }
 }

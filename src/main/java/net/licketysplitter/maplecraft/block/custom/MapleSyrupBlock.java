@@ -1,4 +1,4 @@
-package net.licketysplitter.block.custom;
+package net.licketysplitter.maplecraft.block.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;

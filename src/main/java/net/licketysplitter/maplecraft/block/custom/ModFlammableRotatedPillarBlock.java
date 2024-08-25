@@ -1,6 +1,6 @@
-package net.licketysplitter.maplecraft.item.custom;
+package net.licketysplitter.maplecraft.block.custom;
 
-import net.licketysplitter.block.ModBlocks;
+import net.licketysplitter.maplecraft.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.AxeItem;

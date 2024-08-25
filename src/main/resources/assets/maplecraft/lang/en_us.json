@@ -1,0 +1,38 @@
+{
+  "item.maplecraft.sugar_glass_shard": "Sugar Glass Shard",
+  "item.maplecraft.maple_syrup_bottle": "Maple Syrup Bottle",
+  "item.maplecraft.deer_spawn_egg": "Deer Spawn Egg",
+
+  "block.maplecraft.maple_syrup_block": "Maple Syrup Block",
+  "block.maplecraft.sugar_glass": "Sugar Glass",
+
+  "item.maplecraft.venison": "Venison",
+  "item.maplecraft.cooked_venison": "Cooked Venison",
+
+  "item.maplecraft.two_point_antler": "Antler",
+  "item.maplecraft.four_point_antler": "Antler",
+  "item.maplecraft.six_point_antler": "Antler",
+  "item.maplecraft.eight_point_antler": "Antler",
+
+  "item.maplecraft.two_point_antler.desc": "Two Point Rack",
+  "item.maplecraft.four_point_antler.desc": "Four Point Rack",
+  "item.maplecraft.six_point_antler.desc": "Six Point Rack",
+  "item.maplecraft.eight_point_antler.desc": "Eight Point Rack",
+
+  "block.maplecraft.maple_log": "Maple Log",
+  "block.maplecraft.maple_wood": "Maple Wood",
+  "block.maplecraft.stripped_maple_log": "Stripped Maple Log",
+  "block.maplecraft.stripped_maple_wood": "Stripped Maple Wood",
+  "block.maplecraft.maple_planks": "Maple Planks",
+  "block.maplecraft.sugar_maple_leaves": "Sugar Maple Leaves",
+  "block.maplecraft.red_maple_leaves": "Red Maple Leaves",
+
+  "block.maplecraft.maple_stairs": "Maple Stairs",
+  "block.maplecraft.maple_slab": "Maple Slab",
+  "block.maplecraft.maple_button": "Maple Button",
+  "block.maplecraft.maple_pressure_plate": "Maple Pressure Plate",
+  "block.maplecraft.maple_fence": "Maple Fence",
+  "block.maplecraft.maple_fence_gate": "Maple Fence Gate",
+  "block.maplecraft.maple_door": "Maple Door",
+  "block.maplecraft.maple_trapdoor": "Maple Trapdoor"
+}
