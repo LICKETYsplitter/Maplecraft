@@ -4,6 +4,7 @@ import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.custom.MapleSyrupBlock;
 import net.licketysplitter.maplecraft.block.custom.ModFlammableRotatedPillarBlock;
 import net.licketysplitter.maplecraft.item.ModItems;
+import net.licketysplitter.maplecraft.worldgen.tree.ModTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -91,6 +92,11 @@ public class ModBlocks {
                 public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return 30;
                 }});
+
+    public static final RegistryObject<Block> RED_MAPLE_SAPLING = registerBlock("red_maple_sapling",
+            () -> new SaplingBlock(ModTreeGrowers.RED_MAPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> SUGAR_MAPLE_SAPLING = registerBlock("sugar_maple_sapling",
+            () -> new SaplingBlock(ModTreeGrowers.SUGAR_MAPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
     public static final RegistryObject<Block> MAPLE_STAIRS = registerBlock("maple_stairs",
             () -> new StairBlock(ModBlocks.MAPLE_PLANKS.get().defaultBlockState(),

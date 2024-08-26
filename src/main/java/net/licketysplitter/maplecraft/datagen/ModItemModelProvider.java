@@ -39,6 +39,15 @@ public class ModItemModelProvider extends ItemModelProvider {
 
 
         withExistingParent(ModItems.DEER_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
+
+        saplingItem(ModBlocks.RED_MAPLE_SAPLING);
+        saplingItem(ModBlocks.SUGAR_MAPLE_SAPLING);
+    }
+
+    private ItemModelBuilder saplingItem(RegistryObject<Block> item) {
+        return withExistingParent(item.getId().getPath(),
+                ResourceLocation.parse("item/generated")).texture("layer0",
+                ResourceLocation.fromNamespaceAndPath(MaplecraftMod.MOD_ID, "block/" + item.getId().getPath()));
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item){

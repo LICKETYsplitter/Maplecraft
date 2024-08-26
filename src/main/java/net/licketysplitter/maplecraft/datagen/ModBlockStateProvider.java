@@ -41,6 +41,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         leavesBlocks(ModBlocks.SUGAR_MAPLE_LEAVES);
         leavesBlocks(ModBlocks.RED_MAPLE_LEAVES);
 
+        saplingBlock(ModBlocks.RED_MAPLE_SAPLING);
+        saplingBlock(ModBlocks.SUGAR_MAPLE_SAPLING);
+
 
         stairsBlock(((StairBlock) ModBlocks.MAPLE_STAIRS.get()), blockTexture(ModBlocks.MAPLE_PLANKS.get()));
         slabBlock(((SlabBlock) ModBlocks.MAPLE_SLAB.get()), blockTexture(ModBlocks.MAPLE_PLANKS.get()), blockTexture(ModBlocks.MAPLE_PLANKS.get()));
@@ -89,4 +92,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
     }
 
+    private void saplingBlock(RegistryObject<Block> blockRegistryObject){
+        simpleBlock(blockRegistryObject.get(),
+                models().cross(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), blockTexture(blockRegistryObject.get())).renderType("cutout"));
+    }
 }

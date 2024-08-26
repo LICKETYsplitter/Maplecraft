@@ -40,9 +40,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.MAPLE_PLANKS.get());
 
         this.add(ModBlocks.SUGAR_MAPLE_LEAVES.get(), block ->
-                createLeavesDrops(block, ModBlocks.SUGAR_GLASS.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.SUGAR_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         this.add(ModBlocks.RED_MAPLE_LEAVES.get(), block ->
-                createLeavesDrops(block, ModBlocks.SUGAR_GLASS.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.RED_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(ModBlocks.MAPLE_STAIRS.get());
         this.dropSelf(ModBlocks.MAPLE_BUTTON.get());
@@ -55,6 +55,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 block -> createSlabItemTable(ModBlocks.MAPLE_SLAB.get()));
         this.add(ModBlocks.MAPLE_DOOR.get(),
                 block -> createDoorTable(ModBlocks.MAPLE_DOOR.get()));
+
+        this.dropSelf(ModBlocks.RED_MAPLE_SAPLING.get());
+        this.dropSelf(ModBlocks.SUGAR_MAPLE_SAPLING.get());
     }
 
     protected LootTable.Builder createSugarGlassDrop(Block pBlock, Item item) {

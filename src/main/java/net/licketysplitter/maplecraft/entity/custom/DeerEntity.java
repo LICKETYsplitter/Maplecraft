@@ -15,7 +15,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -54,7 +53,7 @@ public class DeerEntity extends Animal {
     public final AnimationState grazeAnimationState = new AnimationState();
     public int grazeAnimationTimeout = 0;
     public final int GRAZE_INTERVAL = 2500;
-    public int grazeCooldown = 0;
+    public int grazeCooldown = GRAZE_INTERVAL;
 
     public final int ANTLER_GROWTH_TIME = 24000;
     public int antlerGrowthCooldown = ANTLER_GROWTH_TIME;
@@ -70,10 +69,6 @@ public class DeerEntity extends Animal {
     private DeerEntity.DeerAvoidEntityGoal<Player> deerAvoidPlayersGoal;
     @Nullable
     private DeerEntity.DeerTemptGoal temptGoal;
-
-
-    public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK =
-            SynchedEntityData.defineId(DeerEntity.class, EntityDataSerializers.LONG);
 
     public DeerEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -179,7 +174,6 @@ public class DeerEntity extends Animal {
         pBuilder.define(RUBBING, false);
         pBuilder.define(GRAZING, false);
         pBuilder.define(DATA_TRUSTING, false);
-        pBuilder.define(LAST_POSE_CHANGE_TICK, 0L);
     }
 
     private int getTypeVariant(){
@@ -212,8 +206,6 @@ public class DeerEntity extends Animal {
         this.entityData.set(VARIANT, pCompound.getInt("Variant"));
         this.entityData.set(POINTS, pCompound.getInt("Points"));
         this.setTrusting(pCompound.getBoolean("Trusting"));
-        long i = pCompound.getLong("LastPoseTick");
-        this.resetLastPoseChangeTick(i);
     }
 
     @Override
@@ -222,8 +214,6 @@ public class DeerEntity extends Animal {
         pCompound.putInt("Variant", this.getTypeVariant());
         pCompound.putInt("Points", this.getTypePoints());
         pCompound.putBoolean("Trusting", this.isTrusting());
-        pCompound.putLong("LastPoseTick", (Long)this.entityData.get(LAST_POSE_CHANGE_TICK));
-
     }
 
     @Override
@@ -247,11 +237,6 @@ public class DeerEntity extends Animal {
 
     public boolean isRubbing(){
         return this.entityData.get(RUBBING);
-    }
-
-    public void interruptRub(){
-        this.setRubbing(false);
-        rubAnimationState.stop();
     }
 
     public void growAntlers(){
@@ -324,32 +309,6 @@ public class DeerEntity extends Animal {
         return this.entityData.get(GRAZING);
     }
 
-    public void interruptGraze(){
-        this.setGrazing(false);
-        //grazeAnimationState.stop();
-        System.out.println(grazeAnimationState.getAccumulatedTime());
-    }
-
-    public void standUpInstantly() {
-        this.setPose(Pose.STANDING);
-        //this.gameEvent(GameEvent.ENTITY_ACTION);
-        //this.resetLastPoseChangeTickToFullStand(this.level().getGameTime());
-    }
-    private void resetLastPoseChangeTickToFullStand(long pLastPoseChangedTick) {
-        this.resetLastPoseChangeTick(Math.max(0L, pLastPoseChangedTick - 52L - 1L));
-    }
-    public void resetLastPoseChangeTick(long pLastPoseChangeTick) {
-        this.entityData.set(LAST_POSE_CHANGE_TICK, pLastPoseChangeTick);
-    }
-    public long getPoseTime() {
-        return this.level().getGameTime() - Math.abs((Long)this.entityData.get(LAST_POSE_CHANGE_TICK));
-    }
-    protected void actuallyHurt(DamageSource pDamageSource, float pDamageAmount) {
-        System.out.println("Hurt");
-        this.standUpInstantly();
-        super.actuallyHurt(pDamageSource, pDamageAmount);
-    }
-
     /* GOALS */
 
 
@@ -363,13 +322,6 @@ public class DeerEntity extends Animal {
 
         protected boolean canScare() {
             return super.canScare() && !deer.isTrusting();
-        }
-
-        @Override
-        public void start() {
-            deer.interruptRub();
-            deer.interruptGraze();
-            super.start();
         }
     }
 
@@ -399,13 +351,6 @@ public class DeerEntity extends Animal {
                 deer.setSprinting(false);
             }
         }
-
-        @Override
-        public void start() {
-            deer.interruptGraze();
-            deer.interruptRub();
-            super.start();
-        }
     }
 
     static class DeerBreedGoal extends BreedGoal{
@@ -419,13 +364,6 @@ public class DeerEntity extends Animal {
         @Override
         public boolean canUse() {
             return super.canUse() && (((DeerEntity)animal).getVariant() != ((DeerEntity)partner).getVariant());
-        }
-
-        @Override
-        public void start() {
-            deer.interruptRub();
-            deer.interruptGraze();
-            super.start();
         }
     }
 
@@ -483,9 +421,6 @@ public class DeerEntity extends Animal {
                 }
                 --dropDelay;
             } else {
-                if(dropDelay < 70) {
-                    entity.interruptRub();
-                }
                 entity.setRubbing(false);
                 dropDelay = 70;
             }
@@ -531,10 +466,7 @@ public class DeerEntity extends Animal {
 
         @Override
         public void start() {
-            deer.interruptGraze();
-            deer.interruptRub();
             deer.setSprinting(true);
-            deer.standUpInstantly();
             super.start();
         }
 
@@ -556,8 +488,6 @@ public class DeerEntity extends Animal {
         @Override
         public void start() {
             deer.setSprinting(true);
-            deer.interruptRub();
-            deer.interruptGraze();
             super.start();
         }
 
@@ -577,32 +507,16 @@ public class DeerEntity extends Animal {
 
         @Override
         public boolean canUse() {
-            if(deer.grazeCooldown == 0)
+            if(deer.grazeCooldown == 0) {
+                deer.grazeCooldown = deer.GRAZE_INTERVAL;
+                deer.setGrazing(!deer.isRubbing());
                 return !deer.isRubbing();
+            }
+            deer.setGrazing(false);
             --deer.grazeCooldown;
             return false;
 
         }
-
-        @Override
-        public void tick() {
-            if(deer.isGrazing()){
-                super.tick();
-            }
-        }
-
-        @Override
-        public void start() {
-            deer.setGrazing(true);
-            super.start();
-        }
-
-        @Override
-        public void stop() {
-            System.out.println("Has Stopped");
-            deer.setGrazing(false);
-            deer.grazeCooldown = deer.GRAZE_INTERVAL;
-            super.stop();
-        }
     }
+
 }

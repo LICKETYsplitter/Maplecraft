@@ -74,6 +74,8 @@ public class MaplecraftMod {
         if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(ModBlocks.SUGAR_MAPLE_LEAVES);
             event.accept(ModBlocks.RED_MAPLE_LEAVES);
+            event.accept(ModBlocks.SUGAR_MAPLE_SAPLING);
+            event.accept(ModBlocks.RED_MAPLE_SAPLING);
             event.accept(ModBlocks.MAPLE_SYRUP_BLOCK);
         }
         if(event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
