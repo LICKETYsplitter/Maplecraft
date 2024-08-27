@@ -21,6 +21,8 @@ public class ModBiomeModifiers {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
 
+        /*
+
         context.register(ADD_TREE_RED_MAPLE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(Tags.Biomes.IS_PLAINS),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.RED_MAPLE_PLACED_KEY)),
@@ -30,6 +32,8 @@ public class ModBiomeModifiers {
                 biomes.getOrThrow(Tags.Biomes.IS_PLAINS),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.SUGAR_MAPLE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION));
+
+         */
     }
 
     private static ResourceKey<BiomeModifier> registerKey(String name){

@@ -8,7 +8,12 @@ import java.util.Optional;
 
 public class ModTreeGrowers {
     public static final TreeGrower RED_MAPLE = new TreeGrower(MaplecraftMod.MOD_ID + ":red_maple",
-            Optional.empty(), Optional.of(ModConfiguredFeatures.RED_MAPLE_KEY), Optional.empty());
+            0.1F, Optional.empty(), Optional.empty(),
+            Optional.of(ModConfiguredFeatures.RED_MAPLE_KEY), Optional.of(ModConfiguredFeatures.FANCY_RED_MAPLE_KEY),
+            Optional.of(ModConfiguredFeatures.RED_MAPLE_BEES_005_KEY), Optional.of(ModConfiguredFeatures.FANCY_RED_MAPLE_BEES_005_KEY));
+
     public static final TreeGrower SUGAR_MAPLE = new TreeGrower(MaplecraftMod.MOD_ID + ":sugar_maple",
-            Optional.empty(), Optional.of(ModConfiguredFeatures.SUGAR_MAPLE_KEY), Optional.empty());
+            0.1F, Optional.empty(), Optional.empty(),
+            Optional.of(ModConfiguredFeatures.SUGAR_MAPLE_KEY), Optional.of(ModConfiguredFeatures.FANCY_SUGAR_MAPLE_KEY),
+            Optional.of(ModConfiguredFeatures.SUGAR_MAPLE_BEES_005_KEY), Optional.of(ModConfiguredFeatures.FANCY_SUGAR_MAPLE_BEES_005_KEY));
 }
