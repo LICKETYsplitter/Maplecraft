@@ -1,9 +1,11 @@
 package net.licketysplitter.maplecraft.block;
 
 import net.licketysplitter.maplecraft.MaplecraftMod;
+import net.licketysplitter.maplecraft.block.custom.MapleLeavesBlock;
 import net.licketysplitter.maplecraft.block.custom.MapleSyrupBlock;
 import net.licketysplitter.maplecraft.block.custom.ModFlammableRotatedPillarBlock;
 import net.licketysplitter.maplecraft.item.ModItems;
+import net.licketysplitter.maplecraft.particle.ModParticles;
 import net.licketysplitter.maplecraft.worldgen.tree.ModTreeGrowers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -77,7 +79,7 @@ public class ModBlocks {
                 }});
 
     public static final RegistryObject<Block> RED_MAPLE_LEAVES = registerBlock("red_maple_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)) {
+            () -> new MapleLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.RED_MAPLE_PARTICLES.get()) {
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return true;
@@ -131,7 +133,6 @@ public class ModBlocks {
                 public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return 5;
                 }});
-
 
     public static final RegistryObject<Block> MAPLE_BUTTON = registerBlock("maple_button",
             () -> new ButtonBlock(BlockSetType.OAK, 15, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON)));

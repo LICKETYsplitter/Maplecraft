@@ -40,6 +40,8 @@ public class ModItems {
             () -> new AntlerItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), "six"));
     public static final RegistryObject<Item> EIGHT_POINT_ANTLER = ITEMS.register("eight_point_antler",
             () -> new AntlerItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), "eight"));
+
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
