@@ -35,11 +35,10 @@ public class MaplecraftMod {
 
         modEventBus.addListener(this::commonSetup);
 
+        ModParticles.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
-        ModParticles.register(modEventBus);
-
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);

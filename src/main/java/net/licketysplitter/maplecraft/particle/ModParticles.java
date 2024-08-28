@@ -13,7 +13,9 @@ public class ModParticles {
             DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MaplecraftMod.MOD_ID);
 
     public static final RegistryObject<SimpleParticleType> RED_MAPLE_PARTICLES =
-            PARTICLE_TYPES.register("red_maple_particles", () -> new SimpleParticleType(true));
+            PARTICLE_TYPES.register("red_maple_particles", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> SUGAR_MAPLE_PARTICLES =
+            PARTICLE_TYPES.register("sugar_maple_particles", () -> new SimpleParticleType(false));
 
     public static void register(IEventBus eventBus){
         PARTICLE_TYPES.register(eventBus);

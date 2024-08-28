@@ -30,5 +30,7 @@ public class ModEventBusEvents {
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ModParticles.RED_MAPLE_PARTICLES.get(),
                 MapleParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.SUGAR_MAPLE_PARTICLES.get(),
+                MapleParticle.Provider::new);
     }
 }
