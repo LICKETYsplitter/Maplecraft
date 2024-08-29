@@ -36,5 +36,9 @@
   "block.maplecraft.maple_fence": "Maple Fence",
   "block.maplecraft.maple_fence_gate": "Maple Fence Gate",
   "block.maplecraft.maple_door": "Maple Door",
-  "block.maplecraft.maple_trapdoor": "Maple Trapdoor"
+  "block.maplecraft.maple_trapdoor": "Maple Trapdoor",
+
+  "block.maplecraft.pile_of_leaves": "Pile of Leaves",
+  "block.maplecraft.poison_ivy": "Poison Ivy"
+
 }

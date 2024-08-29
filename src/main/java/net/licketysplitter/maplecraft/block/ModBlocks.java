@@ -4,6 +4,7 @@ import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.custom.MapleLeavesBlock;
 import net.licketysplitter.maplecraft.block.custom.MapleSyrupBlock;
 import net.licketysplitter.maplecraft.block.custom.ModFlammableRotatedPillarBlock;
+import net.licketysplitter.maplecraft.block.custom.PoisonIvyBlock;
 import net.licketysplitter.maplecraft.item.ModItems;
 import net.licketysplitter.maplecraft.worldgen.tree.ModTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -17,6 +18,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -174,6 +177,18 @@ public class ModBlocks {
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
     public static final RegistryObject<Block> MAPLE_TRAPDOOR = registerBlock("maple_trapdoor",
             () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
+
+    public static final RegistryObject<Block> PILE_OF_LEAVES = registerBlock("pile_of_leaves",
+            () -> new PinkPetalsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)));
+
+    public static final RegistryObject<Block> POISON_IVY = registerBlock("poison_ivy",
+            () -> new PoisonIvyBlock(BlockBehaviour.Properties.of()
+                    .replaceable()
+                    .noCollission()
+                    .strength(0.2F)
+                    .sound(SoundType.GLOW_LICHEN)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)));
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
