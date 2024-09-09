@@ -37,7 +37,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.MAPLE_SYRUP_BOTTLE.get(), 4)
-                .requires(ModBlocks.MAPLE_SYRUP_BLOCK.get()).requires(Items.GLASS_BOTTLE, 4)
+                .requires(ModBlocks.MAPLE_SYRUP_BLOCK.get())
+                .requires(Items.GLASS_BOTTLE, 4)
                 .unlockedBy(getHasName(ModBlocks.MAPLE_SYRUP_BLOCK.get()), has(ModBlocks.MAPLE_SYRUP_BLOCK.get()))
                 .save(recipeOutput);
 
@@ -122,6 +123,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         oreSmelting(recipeOutput, List.of(ModItems.VENISON.get()), RecipeCategory.FOOD,
                 ModItems.COOKED_VENISON.get(), 0.35F, 200, "cooked_venison");
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.PURPLE_DYE, 2)
+                .requires(ModBlocks.ASTER.get())
+                .unlockedBy(getHasName(ModBlocks.ASTER.get()), has(ModBlocks.ASTER.get()))
+                .save(recipeOutput);
     }
 
     protected static void oreSmelting(RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory,
