@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [128, 128],
 	"ambientocclusion": false,
-	"render_type": "minecraft:translucent",
+	"render_type": "minecraft:cutout",
 	"parent" : "minecraft:block/orientable",
 	"textures": {
 		"0": "maplecraft:block/evaporator",

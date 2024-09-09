@@ -44,5 +44,7 @@
   "item.maplecraft.sap_bucket": "Bucket of Sap",
   "block.maplecraft.evaporator": "Evaporator",
 
-  "block.maplecraft.aster": "Aster"
+  "block.maplecraft.aster": "Aster",
+
+  "creativetab.maplecraft": "Maplecraft"
 }
