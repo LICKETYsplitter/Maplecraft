@@ -2,15 +2,32 @@ package net.licketysplitter.maplecraft;
 
 import com.mojang.logging.LogUtils;
 import net.licketysplitter.maplecraft.block.ModBlocks;
+import net.licketysplitter.maplecraft.block.custom.EvaporatorBlock;
+import net.licketysplitter.maplecraft.block.entity.ModBlockEntities;
+import net.licketysplitter.maplecraft.block.entity.custom.EvaporatorBlockEntity;
+import net.licketysplitter.maplecraft.block.entity.renderer.ModRenderType;
 import net.licketysplitter.maplecraft.entity.ModEntities;
 import net.licketysplitter.maplecraft.entity.client.DeerRenderer;
 import net.licketysplitter.maplecraft.item.ModItems;
 import net.licketysplitter.maplecraft.particle.ModParticles;
-import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.licketysplitter.maplecraft.screen.EvaporatorScreen;
+import net.licketysplitter.maplecraft.screen.ModMenuTypes;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterNamedRenderTypesEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -22,7 +39,10 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
+
+import java.awt.*;
 
 @Mod(MaplecraftMod.MOD_ID)
 public class MaplecraftMod {
@@ -39,6 +59,8 @@ public class MaplecraftMod {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
@@ -74,6 +96,7 @@ public class MaplecraftMod {
 
             event.accept(ModBlocks.PILE_OF_LEAVES);
             event.accept(ModBlocks.POISON_IVY);
+            event.accept(ModBlocks.ASTER);
         }
         if(event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             event.accept(ModBlocks.MAPLE_SYRUP_BLOCK);
@@ -102,6 +125,12 @@ public class MaplecraftMod {
         if(event.getTabKey() == CreativeModeTabs.SPAWN_EGGS){
             event.accept(ModItems.DEER_SPAWN_EGG);
         }
+        if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
+            event.accept(ModItems.SAP_BUCKET);
+        }
+        if(event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS){
+            event.accept(ModBlocks.EVAPORATOR);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -118,6 +147,40 @@ public class MaplecraftMod {
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             EntityRenderers.register(ModEntities.DEER.get(), DeerRenderer::new);
+            MenuScreens.register(ModMenuTypes.EVAPORATOR_MENU.get(), EvaporatorScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void registerColoredBlocks(RegisterColorHandlersEvent.Block event){
+            event.register(new BlockColor() {
+                @Override
+                public int getColor(BlockState pState, @Nullable BlockAndTintGetter pLevel, @Nullable BlockPos pPos, int pTintIndex) {
+                    if (pLevel != null && pPos != null) {
+                        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+
+                        if (blockEntity instanceof EvaporatorBlockEntity) {
+                            int white = 255;
+                            int red = 113;
+                            int green = 57;
+                            int blue = 9;
+                            float progress = ((EvaporatorBlockEntity) blockEntity).getAccumulatedProgress();
+
+                            red = white - (int)((white - red) * progress);
+                            green = white - (int)((white - green) * progress);
+                            blue = white - (int)((white - blue) * progress);
+
+                            Color returnColor = new Color(red, green, blue);
+                            return returnColor.hashCode();
+                        }
+                    }
+                    return 0xFFFFFF;
+                }
+            }, ModBlocks.EVAPORATOR.get());
+        }
+
+        @SubscribeEvent
+        public static void registerNamedRenderTypes(RegisterNamedRenderTypesEvent event){
+            event.register("evaporator", RenderType.cutout(), RenderType.entityTranslucent(ResourceLocation.withDefaultNamespace("textures/blocks/water_still.png")));
         }
     }
 }

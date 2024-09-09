@@ -79,7 +79,9 @@ public class PoisonIvyBlock extends MultifaceBlock implements BonemealableBlock,
     @Override
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
         LivingEntity livingEntity = ((LivingEntity) pEntity);
-        livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 1, 1));
+        livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 100));
+
+        super.stepOn(pLevel, pPos, pState, pEntity);
     }
 
     @Override

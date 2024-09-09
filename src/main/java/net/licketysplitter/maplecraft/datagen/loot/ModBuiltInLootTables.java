@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ModBuiltInLootTables {
-    private static final Set<ResourceKey<LootTable>> LOCATIONS = new HashSet();
+    private static final Set<ResourceKey<LootTable>> LOCATIONS = new HashSet<>();
     private static final Set<ResourceKey<LootTable>> IMMUTABLE_LOCATIONS;
     public static final ResourceKey<LootTable> EMPTY;
     public static final ResourceKey<LootTable> DOE;

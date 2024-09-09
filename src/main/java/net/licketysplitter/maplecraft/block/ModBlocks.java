@@ -1,10 +1,7 @@
 package net.licketysplitter.maplecraft.block;
 
 import net.licketysplitter.maplecraft.MaplecraftMod;
-import net.licketysplitter.maplecraft.block.custom.MapleLeavesBlock;
-import net.licketysplitter.maplecraft.block.custom.MapleSyrupBlock;
-import net.licketysplitter.maplecraft.block.custom.ModFlammableRotatedPillarBlock;
-import net.licketysplitter.maplecraft.block.custom.PoisonIvyBlock;
+import net.licketysplitter.maplecraft.block.custom.*;
 import net.licketysplitter.maplecraft.item.ModItems;
 import net.licketysplitter.maplecraft.worldgen.tree.ModTreeGrowers;
 import net.minecraft.core.BlockPos;
@@ -17,6 +14,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -26,8 +24,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 public class ModBlocks {
+
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, MaplecraftMod.MOD_ID);
 
@@ -184,11 +184,19 @@ public class ModBlocks {
     public static final RegistryObject<Block> POISON_IVY = registerBlock("poison_ivy",
             () -> new PoisonIvyBlock(BlockBehaviour.Properties.of()
                     .replaceable()
-                    .noCollission()
+                    .noOcclusion()
                     .strength(0.2F)
                     .sound(SoundType.GLOW_LICHEN)
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> EVAPORATOR = registerBlock("evaporator",
+            () -> new EvaporatorBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .lightLevel(state -> state.getValue(EvaporatorBlock.LIT) ? 13 : 0)));
+
+    public static final RegistryObject<Block> ASTER = registerBlock("aster",
+            () -> new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LILAC)));
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

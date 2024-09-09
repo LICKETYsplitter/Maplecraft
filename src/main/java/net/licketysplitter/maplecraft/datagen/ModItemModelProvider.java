@@ -42,6 +42,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         saplingItem(ModBlocks.RED_MAPLE_SAPLING);
         saplingItem(ModBlocks.SUGAR_MAPLE_SAPLING);
+
+        simpleItem(ModItems.SAP_BUCKET);
     }
 
     private ItemModelBuilder saplingItem(RegistryObject<Block> item) {

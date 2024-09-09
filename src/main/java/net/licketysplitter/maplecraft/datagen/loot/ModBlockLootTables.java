@@ -61,6 +61,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.dropSelf(ModBlocks.PILE_OF_LEAVES.get());
         this.dropSelf(ModBlocks.POISON_IVY.get());
+        this.dropSelf(ModBlocks.EVAPORATOR.get());
+
+        this.dropSelf(ModBlocks.ASTER.get());
     }
 
     protected LootTable.Builder createSugarGlassDrop(Block pBlock, Item item) {

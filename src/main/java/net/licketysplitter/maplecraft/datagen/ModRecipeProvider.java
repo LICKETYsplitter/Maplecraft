@@ -121,6 +121,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         oreSmelting(recipeOutput, List.of(ModItems.VENISON.get()), RecipeCategory.FOOD,
                 ModItems.COOKED_VENISON.get(), 0.35F, 200, "cooked_venison");
+
     }
 
     protected static void oreSmelting(RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory,

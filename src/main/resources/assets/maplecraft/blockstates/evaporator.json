@@ -1,0 +1,154 @@
+{
+  "variants": {
+    "facing=east,lit=false,fill_level=0": {
+      "model": "maplecraft:block/evaporator",
+      "y": 90
+    },
+    "facing=east,lit=true,fill_level=0": {
+      "model": "maplecraft:block/evaporator_lit",
+      "y": 90
+    },
+    "facing=east,lit=false,fill_level=1": {
+      "model": "maplecraft:block/evaporator_full_1",
+      "y": 90
+    },
+    "facing=east,lit=true,fill_level=1": {
+      "model": "maplecraft:block/evaporator_lit_full_1",
+      "y": 90
+    },
+    "facing=east,lit=false,fill_level=2": {
+      "model": "maplecraft:block/evaporator_full_2",
+      "y": 90
+    },
+    "facing=east,lit=true,fill_level=2": {
+      "model": "maplecraft:block/evaporator_lit_full_2",
+      "y": 90
+    },
+    "facing=east,lit=false,fill_level=3": {
+      "model": "maplecraft:block/evaporator_full_3",
+      "y": 90
+    },
+    "facing=east,lit=true,fill_level=3": {
+      "model": "maplecraft:block/evaporator_lit_full_3",
+      "y": 90
+    },
+    "facing=east,lit=false,fill_level=4": {
+      "model": "maplecraft:block/evaporator_full_4",
+      "y": 90
+    },
+    "facing=east,lit=true,fill_level=4": {
+      "model": "maplecraft:block/evaporator_lit_full_4",
+      "y": 90
+    },
+    "facing=north,lit=false,fill_level=0": {
+      "model": "maplecraft:block/evaporator"
+    },
+    "facing=north,lit=true,fill_level=0": {
+      "model": "maplecraft:block/evaporator_lit"
+    },
+    "facing=north,lit=false,fill_level=1": {
+      "model": "maplecraft:block/evaporator_full_1"
+    },
+    "facing=north,lit=true,fill_level=1": {
+      "model": "maplecraft:block/evaporator_lit_full_1"
+    },
+    "facing=north,lit=false,fill_level=2": {
+      "model": "maplecraft:block/evaporator_full_2"
+    },
+    "facing=north,lit=true,fill_level=2": {
+      "model": "maplecraft:block/evaporator_lit_full_2"
+    },
+    "facing=north,lit=false,fill_level=3": {
+      "model": "maplecraft:block/evaporator_full_3"
+    },
+    "facing=north,lit=true,fill_level=3": {
+      "model": "maplecraft:block/evaporator_lit_full_3"
+    },
+    "facing=north,lit=false,fill_level=4": {
+      "model": "maplecraft:block/evaporator_full_4"
+    },
+    "facing=north,lit=true,fill_level=4": {
+      "model": "maplecraft:block/evaporator_lit_full_4"
+    },
+    "facing=south,lit=false,fill_level=0": {
+      "model": "maplecraft:block/evaporator",
+      "y": 180
+    },
+    "facing=south,lit=true,fill_level=0": {
+      "model": "maplecraft:block/evaporator_lit",
+      "y": 180
+    },
+    "facing=south,lit=false,fill_level=1": {
+      "model": "maplecraft:block/evaporator_full_1",
+      "y": 180
+    },
+    "facing=south,lit=true,fill_level=1": {
+      "model": "maplecraft:block/evaporator_lit_full_1",
+      "y": 180
+    },
+    "facing=south,lit=false,fill_level=2": {
+      "model": "maplecraft:block/evaporator_full_2",
+      "y": 180
+    },
+    "facing=south,lit=true,fill_level=2": {
+      "model": "maplecraft:block/evaporator_lit_full_2",
+      "y": 180
+    },
+    "facing=south,lit=false,fill_level=3": {
+      "model": "maplecraft:block/evaporator_full_3",
+      "y": 180
+    },
+    "facing=south,lit=true,fill_level=3": {
+      "model": "maplecraft:block/evaporator_lit_full_3",
+      "y": 180
+    },
+    "facing=south,lit=false,fill_level=4": {
+      "model": "maplecraft:block/evaporator_full_4",
+      "y": 180
+    },
+    "facing=south,lit=true,fill_level=4": {
+      "model": "maplecraft:block/evaporator_lit_full_4",
+      "y": 180
+    },
+    "facing=west,lit=false,fill_level=0": {
+      "model": "maplecraft:block/evaporator",
+      "y": 270
+    },
+    "facing=west,lit=true,fill_level=0": {
+      "model": "maplecraft:block/evaporator_lit",
+      "y": 270
+    },
+    "facing=west,lit=false,fill_level=1": {
+      "model": "maplecraft:block/evaporator_full_1",
+      "y": 270
+    },
+    "facing=west,lit=true,fill_level=1": {
+      "model": "maplecraft:block/evaporator_lit_full_1",
+      "y": 270
+    },
+    "facing=west,lit=false,fill_level=2": {
+      "model": "maplecraft:block/evaporator_full_2",
+      "y": 270
+    },
+    "facing=west,lit=true,fill_level=2": {
+      "model": "maplecraft:block/evaporator_lit_full_2",
+      "y": 270
+    },
+    "facing=west,lit=false,fill_level=3": {
+      "model": "maplecraft:block/evaporator_full_3",
+      "y": 270
+    },
+    "facing=west,lit=true,fill_level=3": {
+      "model": "maplecraft:block/evaporator_lit_full_3",
+      "y": 270
+    },
+    "facing=west,lit=false,fill_level=4": {
+      "model": "maplecraft:block/evaporator_full_4",
+      "y": 270
+    },
+    "facing=west,lit=true,fill_level=4": {
+      "model": "maplecraft:block/evaporator_lit_full_4",
+      "y": 270
+    }
+  }
+}

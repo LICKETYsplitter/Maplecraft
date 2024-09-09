@@ -39,6 +39,10 @@
   "block.maplecraft.maple_trapdoor": "Maple Trapdoor",
 
   "block.maplecraft.pile_of_leaves": "Pile of Leaves",
-  "block.maplecraft.poison_ivy": "Poison Ivy"
+  "block.maplecraft.poison_ivy": "Poison Ivy",
 
+  "item.maplecraft.sap_bucket": "Bucket of Sap",
+  "block.maplecraft.evaporator": "Evaporator",
+
+  "block.maplecraft.aster": "Aster"
 }
