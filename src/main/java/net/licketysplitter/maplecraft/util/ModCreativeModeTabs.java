@@ -1,5 +1,6 @@
-package net.licketysplitter.maplecraft;
+package net.licketysplitter.maplecraft.util;
 
+import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.ModBlocks;
 import net.licketysplitter.maplecraft.item.ModItems;
 import net.minecraft.core.registries.Registries;

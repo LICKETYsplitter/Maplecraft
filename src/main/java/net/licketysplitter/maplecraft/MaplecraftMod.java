@@ -2,28 +2,26 @@ package net.licketysplitter.maplecraft;
 
 import com.mojang.logging.LogUtils;
 import net.licketysplitter.maplecraft.block.ModBlocks;
-import net.licketysplitter.maplecraft.block.custom.EvaporatorBlock;
 import net.licketysplitter.maplecraft.block.entity.ModBlockEntities;
 import net.licketysplitter.maplecraft.block.entity.custom.EvaporatorBlockEntity;
-import net.licketysplitter.maplecraft.block.entity.renderer.ModRenderType;
 import net.licketysplitter.maplecraft.entity.ModEntities;
 import net.licketysplitter.maplecraft.entity.client.DeerRenderer;
 import net.licketysplitter.maplecraft.item.ModItems;
 import net.licketysplitter.maplecraft.particle.ModParticles;
 import net.licketysplitter.maplecraft.screen.EvaporatorScreen;
 import net.licketysplitter.maplecraft.screen.ModMenuTypes;
+import net.licketysplitter.maplecraft.util.ModCreativeModeTabs;
 import net.minecraft.client.color.block.BlockColor;
-import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -178,6 +176,14 @@ public class MaplecraftMod {
                     return 0xFFFFFF;
                 }
             }, ModBlocks.EVAPORATOR.get());
+
+            event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
+                    pPos != null ? BiomeColors.getAverageFoliageColor(pLevel,pPos) : FoliageColor.getDefaultColor(), ModBlocks.PILE_OF_LEAVES.get());
+        }
+
+        @SubscribeEvent
+        public static void registerColoredItems(RegisterColorHandlersEvent.Item event){
+            event.register((pStack, pTintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.PILE_OF_LEAVES.get());
         }
 
         @SubscribeEvent

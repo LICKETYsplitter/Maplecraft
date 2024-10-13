@@ -1,6 +1,4 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "maplecraft:item/pile_of_leaves"
-  }
+  "parent": "maplecraft:block/pile_of_leaves2"
+
 }

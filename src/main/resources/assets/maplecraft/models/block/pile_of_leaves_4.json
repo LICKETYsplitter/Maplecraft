@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/flowerbed_4",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "flowerbed": "maplecraft:block/pile_of_leaves",
-    "stem": "maplecraft:block/pile_of_leaves_stem"
-  }
-}
