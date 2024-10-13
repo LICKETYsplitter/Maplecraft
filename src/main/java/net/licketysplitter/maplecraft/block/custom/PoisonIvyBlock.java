@@ -23,6 +23,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PoisonIvyBlock extends MultifaceBlock implements BonemealableBlock, SimpleWaterloggedBlock {
     public static final MapCodec<PoisonIvyBlock> CODEC = simpleCodec(PoisonIvyBlock::new);
@@ -77,7 +80,7 @@ public class PoisonIvyBlock extends MultifaceBlock implements BonemealableBlock,
     }
 
     @Override
-    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
+    protected void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         LivingEntity livingEntity = ((LivingEntity) pEntity);
         livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 100));
 
@@ -97,5 +100,10 @@ public class PoisonIvyBlock extends MultifaceBlock implements BonemealableBlock,
     @Override
     public MultifaceSpreader getSpreader() {
         return this.spreader;
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return Shapes.empty();
     }
 }
