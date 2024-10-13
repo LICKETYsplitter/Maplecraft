@@ -98,6 +98,7 @@ public class MaplecraftMod {
             event.accept(ModBlocks.PILE_OF_LEAVES);
             event.accept(ModBlocks.POISON_IVY);
             event.accept(ModBlocks.ASTER);
+            event.accept(ModBlocks.CATTAIL);
         }
         if(event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             event.accept(ModBlocks.MAPLE_SYRUP_BLOCK);

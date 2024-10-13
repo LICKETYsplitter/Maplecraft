@@ -127,6 +127,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(ModBlocks.ASTER.get())
                 .unlockedBy(getHasName(ModBlocks.ASTER.get()), has(ModBlocks.ASTER.get()))
                 .save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.WHITE_DYE, 2)
+                .requires(ModBlocks.CATTAIL.get())
+                .unlockedBy(getHasName(ModBlocks.CATTAIL.get()), has(ModBlocks.CATTAIL.get()))
+                .save(recipeOutput);
     }
 
     protected static void oreSmelting(RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory,

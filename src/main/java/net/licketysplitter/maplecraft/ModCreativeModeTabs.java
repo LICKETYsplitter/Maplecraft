@@ -37,6 +37,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.PILE_OF_LEAVES.get());
                         output.accept(ModBlocks.POISON_IVY.get());
                         output.accept(ModBlocks.ASTER.get());
+                        output.accept(ModBlocks.CATTAIL.get());
 
                         output.accept(ModBlocks.MAPLE_SYRUP_BLOCK.get());
 

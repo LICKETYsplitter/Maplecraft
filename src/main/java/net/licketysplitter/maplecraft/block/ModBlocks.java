@@ -197,6 +197,15 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> ASTER = registerBlock("aster",
             () -> new TallFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LILAC)));
+    public static final RegistryObject<Block> CATTAIL = registerBlock("cattail",
+            () -> new CattailBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .offsetType(BlockBehaviour.OffsetType.XZ)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)));
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "maplecraft:block/cattail_bottom"
+    },
+    "half=upper": {
+      "model": "maplecraft:block/cattail_top"
+    }
+  }
+}
