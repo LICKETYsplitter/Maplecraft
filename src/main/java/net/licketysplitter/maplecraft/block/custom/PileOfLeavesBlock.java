@@ -1,26 +1,26 @@
 package net.licketysplitter.maplecraft.block.custom;
 
+import net.licketysplitter.maplecraft.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class PileOfLeavesBlock extends Block {
+public class PileOfLeavesBlock extends Block implements net.minecraftforge.common.IForgeShearable {
 
     private static final int MAX_HEIGHT = 8;
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS;
@@ -36,9 +36,24 @@ public class PileOfLeavesBlock extends Block {
             Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0)
     };
 
+    @Override
+    protected VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+        return Shapes.empty();
+    }
+
     public PileOfLeavesBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(LAYERS, Integer.valueOf(1)));
+    }
+
+    protected void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+        if (!pLevel.isClientSide) {
+            if (((pLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)
+                    && pEntity.getType().is(ModTags.Entities.CAN_RUSTLE_LEAVES))
+                    || pEntity instanceof Player) && pEntity.mayInteract(pLevel, pPos)) {
+                pLevel.destroyBlock(pPos, false);
+            }
+        }
     }
 
     @Override
@@ -48,7 +63,7 @@ public class PileOfLeavesBlock extends Block {
 
     @Override
     protected VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPE_BY_LAYER[pState.getValue(LAYERS) - 1];
+        return Shapes.empty();
     }
 
     @Override

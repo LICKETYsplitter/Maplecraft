@@ -179,7 +179,13 @@ public class ModBlocks {
             () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
 
     public static final RegistryObject<Block> PILE_OF_LEAVES = registerBlock("pile_of_leaves",
-            () -> new PileOfLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS)));
+            () -> new PileOfLeavesBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.PLANT)
+                    .noCollission()
+                    .sound(SoundType.PINK_PETALS)
+                    .pushReaction(PushReaction.DESTROY)
+                    .strength(0.1F)
+                    .requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> POISON_IVY = registerBlock("poison_ivy",
             () -> new PoisonIvyBlock(BlockBehaviour.Properties.of()
