@@ -2,17 +2,21 @@ package net.licketysplitter.maplecraft.worldgen;
 
 import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.ModBlocks;
+import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
@@ -20,6 +24,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.List;
 import java.util.OptionalInt;
@@ -35,6 +40,8 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_RED_MAPLE_BEES_005_KEY = registerKey("fancy_red_maple_bees_005");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_RED_MAPLE_BEES_KEY = registerKey("fancy_red_maple_bees");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_RED_MAPLE_KEY = registerKey("random_red_maple");
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> SUGAR_MAPLE_KEY = registerKey("sugar_maple");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_SUGAR_MAPLE_KEY = registerKey("fancy_sugar_maple");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SUGAR_MAPLE_BEES_0002_KEY = registerKey("sugar_maple_bees_0002");
@@ -44,6 +51,11 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_SUGAR_MAPLE_BEES_002_KEY = registerKey("fancy_sugar_maple_bees_002");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_SUGAR_MAPLE_BEES_005_KEY = registerKey("fancy_sugar_maple_bees_005");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_SUGAR_MAPLE_BEES_KEY = registerKey("fancy_sugar_maple_bees");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_SUGAR_MAPLE_KEY = registerKey("random_sugar_maple");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ASTER_KEY = registerKey("aster");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CATTAIL_KEY = registerKey("cattail");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context){
         createAllMaples(context, ModBlocks.RED_MAPLE_LEAVES.get(),
@@ -67,6 +79,37 @@ public class ModConfiguredFeatures {
                 FANCY_SUGAR_MAPLE_BEES_002_KEY,
                 FANCY_SUGAR_MAPLE_BEES_005_KEY,
                 FANCY_SUGAR_MAPLE_BEES_KEY);
+
+        register(context,
+                ASTER_KEY,
+                Feature.FLOWER,
+                new RandomPatchConfiguration(32, 6, 2,
+                        PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.ASTER.get())))));
+
+        register(context,
+                CATTAIL_KEY,
+                Feature.FLOWER,
+                new RandomPatchConfiguration(32, 6, 2,
+                        PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAIL.get())))));
+
+        HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
+        Holder<PlacedFeature> fancyRed = placedFeatures.getOrThrow(ModPlacedFeatures.PLACEMENT_FANCY_RED_MAPLE);
+        Holder<PlacedFeature> regularRed = placedFeatures.getOrThrow(ModPlacedFeatures.PLACEMENT_RED_MAPLE);
+        FeatureUtils.register(
+                context,
+                RANDOM_RED_MAPLE_KEY,
+                Feature.RANDOM_SELECTOR,
+                new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(fancyRed, 0.1f)), regularRed));
+        Holder<PlacedFeature> fancySugar = placedFeatures.getOrThrow(ModPlacedFeatures.PLACEMENT_FANCY_SUGAR_MAPLE);
+        Holder<PlacedFeature> regularSugar = placedFeatures.getOrThrow(ModPlacedFeatures.PLACEMENT_SUGAR_MAPLE);
+        FeatureUtils.register(
+                context,
+                RANDOM_SUGAR_MAPLE_KEY,
+                Feature.RANDOM_SELECTOR,
+                new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(fancySugar, 0.1f)), regularSugar));
+
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name){

@@ -11,6 +11,9 @@ import net.licketysplitter.maplecraft.particle.ModParticles;
 import net.licketysplitter.maplecraft.screen.EvaporatorScreen;
 import net.licketysplitter.maplecraft.screen.ModMenuTypes;
 import net.licketysplitter.maplecraft.util.ModCreativeModeTabs;
+import net.licketysplitter.maplecraft.worldgen.biome.ModBiomeColors;
+import net.licketysplitter.maplecraft.worldgen.biome.ModTerrablender;
+import net.licketysplitter.maplecraft.worldgen.biome.surface.ModSurfaceRules;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.BiomeColors;
@@ -21,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,6 +43,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
+import terrablender.api.SurfaceRuleManager;
 
 import java.awt.*;
 
@@ -60,6 +65,7 @@ public class MaplecraftMod {
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
+        ModTerrablender.registerBiomes();
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
@@ -68,6 +74,9 @@ public class MaplecraftMod {
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
+        event.enqueueWork(() ->{
+            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MOD_ID, ModSurfaceRules.makeRules());
+        });
     }
 
     // Add the example block item to the building blocks tab
@@ -151,6 +160,12 @@ public class MaplecraftMod {
         }
 
         @SubscribeEvent
+        public static void registerColorResolver(RegisterColorHandlersEvent.ColorResolvers event){
+            event.register(ModBiomeColors.BIRCH_COLOR_RESOLVER);
+            event.register(ModBiomeColors.EVERGREEN_COLOR_RESOLVER);
+        }
+
+        @SubscribeEvent
         public static void registerColoredBlocks(RegisterColorHandlersEvent.Block event){
             event.register(new BlockColor() {
                 @Override
@@ -179,6 +194,13 @@ public class MaplecraftMod {
 
             event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
                     pPos != null ? BiomeColors.getAverageFoliageColor(pLevel,pPos) : FoliageColor.getDefaultColor(), ModBlocks.PILE_OF_LEAVES.get());
+
+            event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
+                    pPos != null ? ModBiomeColors.getBirchColor(pLevel, pPos) : FoliageColor.getBirchColor(), Blocks.BIRCH_LEAVES);
+
+            event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
+                    pPos != null ? ModBiomeColors.getEvergreenColor(pLevel, pPos) : FoliageColor.getEvergreenColor(), Blocks.SPRUCE_LEAVES);
+
         }
 
         @SubscribeEvent

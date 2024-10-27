@@ -2,6 +2,7 @@ package net.licketysplitter.maplecraft.worldgen;
 
 import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.ModBlocks;
+import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -11,8 +12,7 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
 
@@ -20,16 +20,63 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> RED_MAPLE_PLACED_KEY = registerKey("red_maple_placed");
     public static final ResourceKey<PlacedFeature> SUGAR_MAPLE_PLACED_KEY = registerKey("sugar_maple_placed");
 
+    public static final ResourceKey<PlacedFeature> ASTER_PLACED_KEY = registerKey("aster_placed");
+    public static final ResourceKey<PlacedFeature> CATTAIL_PLACED_KEY = registerKey("cattail_placed");
+
+    public static final ResourceKey<PlacedFeature> PLACEMENT_FANCY_RED_MAPLE =
+            registerKey("placement_fancy_red_maple");
+    public static final ResourceKey<PlacedFeature> PLACEMENT_RED_MAPLE =
+            registerKey("placement_red_maple");
+
+    public static final ResourceKey<PlacedFeature> PLACEMENT_FANCY_SUGAR_MAPLE =
+            registerKey("placement_fancy_sugar_maple");
+    public static final ResourceKey<PlacedFeature> PLACEMENT_SUGAR_MAPLE =
+            registerKey("placement_sugar_maple");
+
     public static void bootstrap(BootstrapContext<PlacedFeature> context){
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
-        register(context, RED_MAPLE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.RED_MAPLE_KEY),
+        register(context, RED_MAPLE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.RANDOM_RED_MAPLE_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2),
                         ModBlocks.RED_MAPLE_SAPLING.get()));
 
-        register(context, SUGAR_MAPLE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.SUGAR_MAPLE_KEY),
+        register(context, SUGAR_MAPLE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.RANDOM_SUGAR_MAPLE_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2),
                         ModBlocks.SUGAR_MAPLE_SAPLING.get()));
+
+        register(context, ASTER_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.ASTER_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+        register(context, CATTAIL_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.CATTAIL_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+
+
+        Holder<ConfiguredFeature<?, ?>> fancyRedMapleBees =
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.FANCY_RED_MAPLE_BEES_005_KEY);
+        Holder<ConfiguredFeature<?, ?>> redMapleBees =
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.RED_MAPLE_KEY);
+
+        PlacementUtils.register(context,
+                PLACEMENT_FANCY_RED_MAPLE, fancyRedMapleBees,
+                PlacementUtils.filteredByBlockSurvival(ModBlocks.RED_MAPLE_SAPLING.get()));
+        PlacementUtils.register(context,
+                PLACEMENT_RED_MAPLE, redMapleBees,
+                PlacementUtils.filteredByBlockSurvival(ModBlocks.RED_MAPLE_SAPLING.get()));
+
+
+        Holder<ConfiguredFeature<?, ?>> fancySugarMapleBees =
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.FANCY_SUGAR_MAPLE_BEES_005_KEY);
+        Holder<ConfiguredFeature<?, ?>> sugarMapleBees =
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.SUGAR_MAPLE_KEY);
+
+        PlacementUtils.register(context,
+                PLACEMENT_FANCY_SUGAR_MAPLE, fancySugarMapleBees,
+                PlacementUtils.filteredByBlockSurvival(ModBlocks.RED_MAPLE_SAPLING.get()));
+        PlacementUtils.register(context,
+                PLACEMENT_SUGAR_MAPLE, sugarMapleBees,
+                PlacementUtils.filteredByBlockSurvival(ModBlocks.RED_MAPLE_SAPLING.get()));
+
+        // CLEAN UP LATER
+        //ModTreePlacements.bootstrap(context);
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name){
