@@ -24,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -201,11 +202,14 @@ public class MaplecraftMod {
             event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
                     pPos != null ? ModBiomeColors.getEvergreenColor(pLevel, pPos) : FoliageColor.getEvergreenColor(), Blocks.SPRUCE_LEAVES);
 
+            event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
+                    pPos != null ? BiomeColors.getAverageGrassColor(pLevel,pPos) : 0x000000, ModBlocks.CATTAIL.get());
         }
 
         @SubscribeEvent
         public static void registerColoredItems(RegisterColorHandlersEvent.Item event){
             event.register((pStack, pTintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.PILE_OF_LEAVES.get());
+            event.register((pStack, pTintIndex) -> GrassColor.getDefaultColor(), ModBlocks.CATTAIL.get());
         }
 
         @SubscribeEvent
