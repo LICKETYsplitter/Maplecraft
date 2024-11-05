@@ -12,6 +12,7 @@ import net.licketysplitter.maplecraft.screen.EvaporatorScreen;
 import net.licketysplitter.maplecraft.screen.ModMenuTypes;
 import net.licketysplitter.maplecraft.util.ModCreativeModeTabs;
 import net.licketysplitter.maplecraft.worldgen.biome.ModBiomeColors;
+import net.licketysplitter.maplecraft.worldgen.biome.ModFeature;
 import net.licketysplitter.maplecraft.worldgen.biome.ModTerrablender;
 import net.licketysplitter.maplecraft.worldgen.biome.surface.ModSurfaceRules;
 import net.minecraft.client.color.block.BlockColor;
@@ -67,6 +68,7 @@ public class MaplecraftMod {
         ModMenuTypes.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModTerrablender.registerBiomes();
+        ModFeature.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
@@ -193,9 +195,11 @@ public class MaplecraftMod {
                 }
             }, ModBlocks.EVAPORATOR.get());
 
+            /*
             event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
                     pPos != null ? BiomeColors.getAverageFoliageColor(pLevel,pPos) : FoliageColor.getDefaultColor(), ModBlocks.PILE_OF_LEAVES.get());
 
+             */
             event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
                     pPos != null ? ModBiomeColors.getBirchColor(pLevel, pPos) : FoliageColor.getBirchColor(), Blocks.BIRCH_LEAVES);
 
@@ -208,7 +212,7 @@ public class MaplecraftMod {
 
         @SubscribeEvent
         public static void registerColoredItems(RegisterColorHandlersEvent.Item event){
-            event.register((pStack, pTintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.PILE_OF_LEAVES.get());
+            //event.register((pStack, pTintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.PILE_OF_LEAVES.get());
             event.register((pStack, pTintIndex) -> GrassColor.getDefaultColor(), ModBlocks.CATTAIL.get());
         }
 

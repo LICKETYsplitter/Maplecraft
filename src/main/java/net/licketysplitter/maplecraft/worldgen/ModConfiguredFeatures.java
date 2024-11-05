@@ -2,6 +2,8 @@ package net.licketysplitter.maplecraft.worldgen;
 
 import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.ModBlocks;
+import net.licketysplitter.maplecraft.worldgen.biome.LeafCoverFeature;
+import net.licketysplitter.maplecraft.worldgen.biome.ModFeature;
 import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -57,6 +59,8 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ASTER_KEY = registerKey("aster");
     public static final ResourceKey<ConfiguredFeature<?, ?>> CATTAIL_KEY = registerKey("cattail");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_COVER = registerKey("leaf_cover");
+
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context){
         createAllMaples(context, ModBlocks.RED_MAPLE_LEAVES.get(),
                 RED_MAPLE_KEY,
@@ -109,6 +113,8 @@ public class ModConfiguredFeatures {
                 RANDOM_SUGAR_MAPLE_KEY,
                 Feature.RANDOM_SELECTOR,
                 new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(fancySugar, 0.1f)), regularSugar));
+
+        FeatureUtils.register(context, LEAF_COVER, ModFeature.LEAF_COVER.get());
 
     }
 

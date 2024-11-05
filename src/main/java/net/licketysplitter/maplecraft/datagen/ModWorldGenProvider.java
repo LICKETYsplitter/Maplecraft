@@ -5,6 +5,7 @@ import net.licketysplitter.maplecraft.worldgen.ModBiomeModifiers;
 import net.licketysplitter.maplecraft.worldgen.ModConfiguredFeatures;
 import net.licketysplitter.maplecraft.worldgen.ModPlacedFeatures;
 import net.licketysplitter.maplecraft.worldgen.biome.ModBiomes;
+import net.licketysplitter.maplecraft.worldgen.biome.ModFeature;
 import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;

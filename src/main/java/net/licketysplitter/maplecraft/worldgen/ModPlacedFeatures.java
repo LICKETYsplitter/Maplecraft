@@ -33,6 +33,8 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PLACEMENT_SUGAR_MAPLE =
             registerKey("placement_sugar_maple");
 
+    public static final ResourceKey<PlacedFeature> LEAF_COVER = registerKey("leaf_cover");
+
     public static void bootstrap(BootstrapContext<PlacedFeature> context){
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
@@ -77,6 +79,10 @@ public class ModPlacedFeatures {
 
         // CLEAN UP LATER
         //ModTreePlacements.bootstrap(context);
+
+        Holder<ConfiguredFeature<?, ?>> leafCover = configuredFeatures.getOrThrow(ModConfiguredFeatures.LEAF_COVER);
+
+        PlacementUtils.register(context, LEAF_COVER, leafCover, BiomeFilter.biome());
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name){
