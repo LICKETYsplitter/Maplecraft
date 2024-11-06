@@ -47,6 +47,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.MAPLE_SYRUP_BOTTLE.get());
                         output.accept(ModItems.VENISON.get());
                         output.accept(ModItems.COOKED_VENISON.get());
+                        output.accept(ModItems.GREEN_APPLE.get());
 
                         output.accept(ModBlocks.MAPLE_LOG.get());
                         output.accept(ModBlocks.MAPLE_WOOD.get());

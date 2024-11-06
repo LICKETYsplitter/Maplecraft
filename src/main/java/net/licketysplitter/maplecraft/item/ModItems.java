@@ -48,6 +48,9 @@ public class ModItems {
     public static final RegistryObject<Item> SAP_BUCKET = ITEMS.register("sap_bucket",
             () -> new SapBucketItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
+    public static final RegistryObject<Item> GREEN_APPLE = ITEMS.register("green_apple",
+            () -> new Item(new Item.Properties().food(ModFoodProperties.GREEN_APPLE)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
