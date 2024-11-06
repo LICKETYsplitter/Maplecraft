@@ -15,6 +15,8 @@ import net.licketysplitter.maplecraft.worldgen.biome.ModBiomeColors;
 import net.licketysplitter.maplecraft.worldgen.biome.ModFeature;
 import net.licketysplitter.maplecraft.worldgen.biome.ModTerrablender;
 import net.licketysplitter.maplecraft.worldgen.biome.surface.ModSurfaceRules;
+import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
+import net.licketysplitter.maplecraft.worldgen.tree.ModTrunkPlacerTypes;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.BiomeColors;
@@ -69,6 +71,7 @@ public class MaplecraftMod {
         ModCreativeModeTabs.register(modEventBus);
         ModTerrablender.registerBiomes();
         ModFeature.register(modEventBus);
+        ModTrunkPlacerTypes.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);

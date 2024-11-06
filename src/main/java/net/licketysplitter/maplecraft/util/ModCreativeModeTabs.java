@@ -33,6 +33,7 @@ public class ModCreativeModeTabs {
 
                         output.accept(ModBlocks.SUGAR_MAPLE_SAPLING.get());
                         output.accept(ModBlocks.RED_MAPLE_SAPLING.get());
+                        output.accept(ModBlocks.APPLE_SAPLING.get());
 
                         output.accept(ModBlocks.MAPLE_SYRUP_BLOCK.get());
 

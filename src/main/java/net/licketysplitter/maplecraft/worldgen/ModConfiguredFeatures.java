@@ -7,6 +7,7 @@ import net.licketysplitter.maplecraft.worldgen.biome.ModFeature;
 import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -14,18 +15,20 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.List;
@@ -60,6 +63,8 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> CATTAIL_KEY = registerKey("cattail");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_COVER = registerKey("leaf_cover");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_TREE = registerKey("apple_tree");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context){
         createAllMaples(context, ModBlocks.RED_MAPLE_LEAVES.get(),
@@ -116,6 +121,8 @@ public class ModConfiguredFeatures {
 
         FeatureUtils.register(context, LEAF_COVER, ModFeature.LEAF_COVER.get());
 
+        FeatureUtils.register(context, APPLE_TREE, Feature.TREE, createApple().build());
+
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name){
@@ -126,6 +133,16 @@ public class ModConfiguredFeatures {
                                                                                           ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration){
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
+
+    private static TreeConfiguration.TreeConfigurationBuilder createApple(){
+        return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.APPLE_LOG.get()),
+                new FancyTrunkPlacer(6, 2, 3), BlockStateProvider.simple(ModBlocks.APPLE_LEAVES.get().defaultBlockState()),
+                new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(2), ConstantInt.of(4), 0.5F, 0.0F, 0.25F, 0.0F),
+                new TwoLayersFeatureSize(1, 0, 2));
+    }
+
+    //new UpwardsBranchingTrunkPlacer(5,2,3, ConstantInt.of(3), 0.5F, ConstantInt.of(4), HolderSet.empty()), BlockStateProvider.simple(ModBlocks.APPLE_LEAVES.get()),
+    //new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(4), 0.5F, 0.0F, 0.25F, 0.1F)
 
     private static TreeConfiguration.TreeConfigurationBuilder createStraightBlobTree(Block pLogBlock, Block pLeavesBlock, int pBaseHeight, int pHeightRandA, int pHeightRandB, int pRadius) {
         return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(pLogBlock),

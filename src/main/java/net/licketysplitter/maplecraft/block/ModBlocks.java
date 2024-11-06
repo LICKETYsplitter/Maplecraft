@@ -278,7 +278,7 @@ public class ModBlocks {
             () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
 
     public static final RegistryObject<Block> APPLE_LEAVES = registerBlock("apple_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)) {
+            () -> new AppleLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)) {
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return true;
@@ -293,7 +293,8 @@ public class ModBlocks {
                 public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return 30;
                 }});
-
+    public static final RegistryObject<Block> APPLE_SAPLING = registerBlock("apple_sapling",
+            () -> new SaplingBlock(ModTreeGrowers.APPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
 
     public static final RegistryObject<Block> PILE_OF_LEAVES = registerBlock("pile_of_leaves",

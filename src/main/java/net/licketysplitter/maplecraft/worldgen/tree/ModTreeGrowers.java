@@ -20,4 +20,7 @@ public class ModTreeGrowers {
             Optional.of(ModConfiguredFeatures.FANCY_SUGAR_MAPLE_KEY),
             Optional.of(ModConfiguredFeatures.SUGAR_MAPLE_BEES_005_KEY),
             Optional.of(ModConfiguredFeatures.FANCY_SUGAR_MAPLE_BEES_005_KEY));
+
+    public static final TreeGrower APPLE = new TreeGrower(MaplecraftMod.MOD_ID + ":apple",
+            Optional.empty(), Optional.of(ModConfiguredFeatures.APPLE_TREE), Optional.empty());
 }

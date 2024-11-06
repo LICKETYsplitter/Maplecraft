@@ -96,7 +96,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.APPLE_PRESSURE_PLATE);
         blockItem(ModBlocks.APPLE_FENCE_GATE);
         blockItem(ModBlocks.APPLE_TRAPDOOR, "_bottom");
-        leavesBlocks(ModBlocks.APPLE_LEAVES);
+        //leavesBlocks(ModBlocks.APPLE_LEAVES);
+        saplingBlock(ModBlocks.APPLE_SAPLING);
 
     }
 
