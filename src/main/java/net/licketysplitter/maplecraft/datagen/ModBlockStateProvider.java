@@ -63,12 +63,41 @@ public class ModBlockStateProvider extends BlockStateProvider {
         doorBlockWithRenderType(((DoorBlock) ModBlocks.MAPLE_DOOR.get()), modLoc("block/maple_door_bottom"), modLoc("block/maple_door_top"), "translucent");
         trapdoorBlockWithRenderType(((TrapDoorBlock) ModBlocks.MAPLE_TRAPDOOR.get()), modLoc("block/maple_trapdoor"), true, "translucent");
 
-
         blockItem(ModBlocks.MAPLE_STAIRS);
         blockItem(ModBlocks.MAPLE_SLAB);
         blockItem(ModBlocks.MAPLE_PRESSURE_PLATE);
         blockItem(ModBlocks.MAPLE_FENCE_GATE);
         blockItem(ModBlocks.MAPLE_TRAPDOOR, "_bottom");
+
+        logBlock((RotatedPillarBlock) ModBlocks.APPLE_LOG.get());
+        axisBlock((RotatedPillarBlock) ModBlocks.APPLE_WOOD.get(), blockTexture(ModBlocks.APPLE_LOG.get()),
+                blockTexture(ModBlocks.APPLE_LOG.get()));
+
+        axisBlock((RotatedPillarBlock) ModBlocks.STRIPPED_APPLE_LOG.get(), blockTexture(ModBlocks.STRIPPED_APPLE_LOG.get()),
+                ResourceLocation.fromNamespaceAndPath(MaplecraftMod.MOD_ID, "block/stripped_apple_log_top"));
+        axisBlock((RotatedPillarBlock) ModBlocks.STRIPPED_APPLE_WOOD.get(), blockTexture(ModBlocks.STRIPPED_APPLE_LOG.get()),
+                blockTexture(ModBlocks.STRIPPED_APPLE_LOG.get()));
+
+        blockItem(ModBlocks.APPLE_LOG);
+        blockItem(ModBlocks.APPLE_WOOD);
+        blockItem(ModBlocks.STRIPPED_APPLE_LOG);
+        blockItem(ModBlocks.STRIPPED_APPLE_WOOD);
+        blockWithItem(ModBlocks.APPLE_PLANKS);
+        stairsBlock(((StairBlock) ModBlocks.APPLE_STAIRS.get()), blockTexture(ModBlocks.APPLE_PLANKS.get()));
+        slabBlock(((SlabBlock) ModBlocks.APPLE_SLAB.get()), blockTexture(ModBlocks.APPLE_PLANKS.get()), blockTexture(ModBlocks.APPLE_PLANKS.get()));
+        buttonBlock(((ButtonBlock) ModBlocks.APPLE_BUTTON.get()), blockTexture(ModBlocks.APPLE_PLANKS.get()));
+        pressurePlateBlock(((PressurePlateBlock) ModBlocks.APPLE_PRESSURE_PLATE.get()), blockTexture(ModBlocks.APPLE_PLANKS.get()));
+        fenceBlock(((FenceBlock) ModBlocks.APPLE_FENCE.get()), blockTexture(ModBlocks.APPLE_PLANKS.get()));
+        fenceGateBlock(((FenceGateBlock) ModBlocks.APPLE_FENCE_GATE.get()), blockTexture(ModBlocks.APPLE_PLANKS.get()));
+        doorBlockWithRenderType(((DoorBlock) ModBlocks.APPLE_DOOR.get()), modLoc("block/apple_door_bottom"), modLoc("block/apple_door_top"), "cutout");
+        trapdoorBlockWithRenderType(((TrapDoorBlock) ModBlocks.APPLE_TRAPDOOR.get()), modLoc("block/apple_trapdoor"), true, "cutout");
+        blockItem(ModBlocks.APPLE_STAIRS);
+        blockItem(ModBlocks.APPLE_SLAB);
+        blockItem(ModBlocks.APPLE_PRESSURE_PLATE);
+        blockItem(ModBlocks.APPLE_FENCE_GATE);
+        blockItem(ModBlocks.APPLE_TRAPDOOR, "_bottom");
+        leavesBlocks(ModBlocks.APPLE_LEAVES);
+
     }
 
     private void leavesBlocks(RegistryObject<Block> blockRegistryObject) {

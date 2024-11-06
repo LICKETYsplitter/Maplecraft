@@ -29,16 +29,27 @@ public class ModItemTagGenerator extends ItemTagsProvider implements RecipeType 
                 .add(ModBlocks.MAPLE_LOG.get().asItem())
                 .add(ModBlocks.MAPLE_WOOD.get().asItem())
                 .add(ModBlocks.STRIPPED_MAPLE_LOG.get().asItem())
-                .add(ModBlocks.STRIPPED_MAPLE_WOOD.get().asItem());
+                .add(ModBlocks.STRIPPED_MAPLE_WOOD.get().asItem())
+                .add(ModBlocks.APPLE_LOG.get().asItem())
+                .add(ModBlocks.APPLE_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_APPLE_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_APPLE_WOOD.get().asItem());
 
         this.tag(ItemTags.PLANKS)
-                .add(ModBlocks.MAPLE_PLANKS.get().asItem());
+                .add(ModBlocks.MAPLE_PLANKS.get().asItem())
+                .add(ModBlocks.APPLE_PLANKS.get().asItem());
 
         this.tag(ModTags.Items.MAPLE_LOGS)
                 .add(ModBlocks.MAPLE_LOG.get().asItem())
                 .add(ModBlocks.MAPLE_WOOD.get().asItem())
                 .add(ModBlocks.STRIPPED_MAPLE_LOG.get().asItem())
                 .add(ModBlocks.STRIPPED_MAPLE_WOOD.get().asItem());
+
+        this.tag(ModTags.Items.APPLE_LOGS)
+                .add(ModBlocks.APPLE_LOG.get().asItem())
+                .add(ModBlocks.APPLE_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_APPLE_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_APPLE_WOOD.get().asItem());
 
         this.tag(ModTags.Items.ANTLERS)
                 .add(ModItems.TWO_POINT_ANTLER.get())

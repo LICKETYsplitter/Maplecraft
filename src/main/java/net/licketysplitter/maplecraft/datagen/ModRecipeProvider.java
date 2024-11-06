@@ -10,6 +10,7 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.List;
@@ -42,80 +43,42 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModBlocks.MAPLE_SYRUP_BLOCK.get()), has(ModBlocks.MAPLE_SYRUP_BLOCK.get()))
                 .save(recipeOutput);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MAPLE_WOOD.get(), 3)
-                .pattern("##")
-                .pattern("##")
-                .define('#', ModBlocks.MAPLE_LOG.get())
-                .unlockedBy(getHasName(ModBlocks.MAPLE_LOG.get()), has(ModBlocks.MAPLE_LOG.get()))
-                .save(recipeOutput);
+        woodFromLogs(recipeOutput, ModBlocks.MAPLE_WOOD.get(), ModBlocks.MAPLE_LOG.get());
+        woodFromLogs(recipeOutput, ModBlocks.STRIPPED_MAPLE_WOOD.get(), ModBlocks.STRIPPED_MAPLE_LOG.get());
+        planksFromLogs(recipeOutput, ModBlocks.MAPLE_PLANKS.get(), ModTags.Items.MAPLE_LOGS, 4);
+        unlockAndSave(stairBuilder(ModBlocks.MAPLE_STAIRS.get(), Ingredient.of(ModBlocks.MAPLE_PLANKS.get())),
+                ModBlocks.MAPLE_PLANKS.get(), recipeOutput);
+        slab(recipeOutput, RecipeCategory.MISC, ModBlocks.MAPLE_SLAB.get(), ModBlocks.MAPLE_PLANKS.get());
+        unlockAndSave(buttonBuilder(ModBlocks.MAPLE_BUTTON.get(), Ingredient.of(ModBlocks.MAPLE_PLANKS.get())),
+                ModBlocks.MAPLE_PLANKS.get(), recipeOutput);
+        pressurePlate(recipeOutput, ModBlocks.MAPLE_PRESSURE_PLATE.get(), ModBlocks.MAPLE_PLANKS.get());
+        unlockAndSave(fenceBuilder(ModBlocks.MAPLE_FENCE.get(), Ingredient.of(ModBlocks.MAPLE_PLANKS.get())),
+                ModBlocks.MAPLE_PLANKS.get(), recipeOutput);
+        unlockAndSave(fenceGateBuilder(ModBlocks.MAPLE_FENCE_GATE.get(), Ingredient.of(ModBlocks.MAPLE_PLANKS.get())),
+                ModBlocks.MAPLE_PLANKS.get(), recipeOutput);
+        unlockAndSave(doorBuilder(ModBlocks.MAPLE_DOOR.get(), Ingredient.of(ModBlocks.MAPLE_PLANKS.get())),
+                ModBlocks.MAPLE_PLANKS.get(), recipeOutput);
+        unlockAndSave(trapdoorBuilder(ModBlocks.MAPLE_TRAPDOOR.get(), Ingredient.of(ModBlocks.MAPLE_PLANKS.get())),
+                ModBlocks.MAPLE_PLANKS.get(), recipeOutput);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.STRIPPED_MAPLE_WOOD.get(), 3)
-                .pattern("##")
-                .pattern("##")
-                .define('#', ModBlocks.STRIPPED_MAPLE_LOG.get())
-                .unlockedBy(getHasName(ModBlocks.STRIPPED_MAPLE_LOG.get()), has(ModBlocks.STRIPPED_MAPLE_LOG.get()))
-                .save(recipeOutput);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModBlocks.MAPLE_PLANKS.get(), 4)
-                .requires(ModTags.Items.MAPLE_LOGS)
-                .unlockedBy(getHasName(ModBlocks.MAPLE_LOG.get()), has(ModBlocks.MAPLE_LOG.get()))
-                .save(recipeOutput);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MAPLE_STAIRS.get(), 4)
-                .pattern("#  ")
-                .pattern("## ")
-                .pattern("###")
-                .define('#', ModBlocks.MAPLE_PLANKS.get())
-                .unlockedBy(getHasName(ModBlocks.MAPLE_PLANKS.get()), has(ModBlocks.MAPLE_PLANKS.get()))
-                .save(recipeOutput);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MAPLE_SLAB.get(), 6)
-                .pattern("###")
-                .define('#', ModBlocks.MAPLE_PLANKS.get())
-                .unlockedBy(getHasName(ModBlocks.MAPLE_PLANKS.get()), has(ModBlocks.MAPLE_PLANKS.get()))
-                .save(recipeOutput);
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModBlocks.MAPLE_BUTTON.get())
-                .requires(ModBlocks.MAPLE_PLANKS.get())
-                .unlockedBy(getHasName(ModBlocks.MAPLE_PLANKS.get()), has(ModBlocks.MAPLE_PLANKS.get()))
-                .save(recipeOutput);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MAPLE_PRESSURE_PLATE.get(), 4)
-                .pattern("##")
-                .define('#', ModBlocks.MAPLE_PLANKS.get())
-                .unlockedBy(getHasName(ModBlocks.MAPLE_PLANKS.get()), has(ModBlocks.MAPLE_PLANKS.get()))
-                .save(recipeOutput);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MAPLE_FENCE.get(), 3)
-                .pattern("#S#")
-                .pattern("#S#")
-                .define('#', ModBlocks.MAPLE_PLANKS.get())
-                .define('S', Items.STICK)
-                .unlockedBy(getHasName(ModBlocks.MAPLE_PLANKS.get()), has(ModBlocks.MAPLE_PLANKS.get()))
-                .save(recipeOutput);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MAPLE_FENCE_GATE.get())
-                .pattern("S#S")
-                .pattern("S#S")
-                .define('#', ModBlocks.MAPLE_PLANKS.get())
-                .define('S', Items.STICK)
-                .unlockedBy(getHasName(ModBlocks.MAPLE_PLANKS.get()), has(ModBlocks.MAPLE_PLANKS.get()))
-                .save(recipeOutput);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MAPLE_DOOR.get(), 3)
-                .pattern("##")
-                .pattern("##")
-                .pattern("##")
-                .define('#', ModBlocks.MAPLE_PLANKS.get())
-                .unlockedBy(getHasName(ModBlocks.MAPLE_PLANKS.get()), has(ModBlocks.MAPLE_PLANKS.get()))
-                .save(recipeOutput);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MAPLE_TRAPDOOR.get(), 2)
-                .pattern("###")
-                .pattern("###")
-                .define('#', ModBlocks.MAPLE_PLANKS.get())
-                .unlockedBy(getHasName(ModBlocks.MAPLE_PLANKS.get()), has(ModBlocks.MAPLE_PLANKS.get()))
-                .save(recipeOutput);
+        woodFromLogs(recipeOutput, ModBlocks.APPLE_WOOD.get(), ModBlocks.APPLE_LOG.get());
+        woodFromLogs(recipeOutput, ModBlocks.STRIPPED_APPLE_WOOD.get(), ModBlocks.STRIPPED_APPLE_LOG.get());
+        planksFromLogs(recipeOutput, ModBlocks.APPLE_PLANKS.get(), ModTags.Items.APPLE_LOGS, 4);
+        unlockAndSave(stairBuilder(ModBlocks.APPLE_STAIRS.get(), Ingredient.of(ModBlocks.APPLE_PLANKS.get())),
+                ModBlocks.APPLE_PLANKS.get(), recipeOutput);
+        slab(recipeOutput, RecipeCategory.MISC, ModBlocks.APPLE_SLAB.get(), ModBlocks.APPLE_PLANKS.get());
+        unlockAndSave(buttonBuilder(ModBlocks.APPLE_BUTTON.get(), Ingredient.of(ModBlocks.APPLE_PLANKS.get())),
+                ModBlocks.APPLE_PLANKS.get(), recipeOutput);
+        pressurePlate(recipeOutput, ModBlocks.APPLE_PRESSURE_PLATE.get(), ModBlocks.APPLE_PLANKS.get());
+        unlockAndSave(fenceBuilder(ModBlocks.APPLE_FENCE.get(), Ingredient.of(ModBlocks.APPLE_PLANKS.get())),
+                ModBlocks.APPLE_PLANKS.get(), recipeOutput);
+        unlockAndSave(fenceGateBuilder(ModBlocks.APPLE_FENCE_GATE.get(), Ingredient.of(ModBlocks.APPLE_PLANKS.get())),
+                ModBlocks.APPLE_PLANKS.get(), recipeOutput);
+        unlockAndSave(doorBuilder(ModBlocks.APPLE_DOOR.get(), Ingredient.of(ModBlocks.APPLE_PLANKS.get())),
+                ModBlocks.APPLE_PLANKS.get(), recipeOutput);
+        unlockAndSave(trapdoorBuilder(ModBlocks.APPLE_TRAPDOOR.get(), Ingredient.of(ModBlocks.APPLE_PLANKS.get())),
+                ModBlocks.APPLE_PLANKS.get(), recipeOutput);
 
         oreSmelting(recipeOutput, List.of(ModBlocks.MAPLE_SYRUP_BLOCK.get()), RecipeCategory.MISC,
                 ModBlocks.SUGAR_GLASS.get(), 1.0f, 200, "sugar_glass");
@@ -131,6 +94,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(ModBlocks.CATTAIL.get())
                 .unlockedBy(getHasName(ModBlocks.CATTAIL.get()), has(ModBlocks.CATTAIL.get()))
                 .save(recipeOutput);
+    }
+
+    private void unlockAndSave(RecipeBuilder recipeBuilder, ItemLike unlockedBy, RecipeOutput recipeOutput){
+        recipeBuilder.unlockedBy(getHasName(unlockedBy), has(unlockedBy)).save(recipeOutput);
     }
 
     protected static void oreSmelting(RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory,

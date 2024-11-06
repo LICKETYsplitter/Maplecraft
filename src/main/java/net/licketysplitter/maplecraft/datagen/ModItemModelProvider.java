@@ -33,9 +33,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.EIGHT_POINT_ANTLER, "antler");
 
         simpleTranslucentBlockItem(ModBlocks.MAPLE_DOOR);
+        simpleBlockItem(ModBlocks.APPLE_DOOR);
 
         fenceItem(ModBlocks.MAPLE_FENCE, ModBlocks.MAPLE_PLANKS);
         buttonItem(ModBlocks.MAPLE_BUTTON, ModBlocks.MAPLE_PLANKS);
+
+        fenceItem(ModBlocks.APPLE_FENCE, ModBlocks.APPLE_PLANKS);
+        buttonItem(ModBlocks.APPLE_BUTTON, ModBlocks.APPLE_PLANKS);
 
 
         withExistingParent(ModItems.DEER_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
@@ -81,8 +85,9 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private ItemModelBuilder simpleBlockItem(RegistryObject<Block> block){
-        return withExistingParent(MaplecraftMod.MOD_ID + ":" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
-                modLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath()));
+        return withExistingParent(block.getId().getPath(),
+                ResourceLocation.parse("item/generated")).texture("layer0",
+                ResourceLocation.fromNamespaceAndPath(MaplecraftMod.MOD_ID, "item/" + block.getId().getPath()));
     }
 
     private ItemModelBuilder simpleTranslucentBlockItem(RegistryObject<Block> item){

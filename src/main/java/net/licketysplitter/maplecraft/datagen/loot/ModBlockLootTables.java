@@ -65,6 +65,25 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.dropSelf(ModBlocks.ASTER.get());
         this.dropSelf(ModBlocks.CATTAIL.get());
+
+        this.dropSelf(ModBlocks.APPLE_LOG.get());
+        this.dropSelf(ModBlocks.APPLE_WOOD.get());
+        this.dropSelf(ModBlocks.STRIPPED_APPLE_LOG.get());
+        this.dropSelf(ModBlocks.STRIPPED_APPLE_WOOD.get());
+        this.dropSelf(ModBlocks.APPLE_PLANKS.get());
+        this.dropSelf(ModBlocks.APPLE_STAIRS.get());
+        this.dropSelf(ModBlocks.APPLE_BUTTON.get());
+        this.dropSelf(ModBlocks.APPLE_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.APPLE_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.APPLE_FENCE.get());
+        this.dropSelf(ModBlocks.APPLE_FENCE_GATE.get());
+        this.add(ModBlocks.APPLE_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.APPLE_SLAB.get()));
+        this.add(ModBlocks.APPLE_DOOR.get(),
+                block -> createDoorTable(ModBlocks.APPLE_DOOR.get()));
+        this.add(ModBlocks.APPLE_LEAVES.get(), block ->
+                createLeavesDrops(block, ModBlocks.SUGAR_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        //^^ Must change sapling!
     }
 
     protected LootTable.Builder createSugarGlassDrop(Block pBlock, Item item) {

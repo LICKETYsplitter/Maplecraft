@@ -208,12 +208,16 @@ public class MaplecraftMod {
 
             event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
                     pPos != null ? BiomeColors.getAverageGrassColor(pLevel,pPos) : 0x000000, ModBlocks.CATTAIL.get());
+
+            event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null &&
+                    pPos != null ? BiomeColors.getAverageFoliageColor(pLevel,pPos) : FoliageColor.getDefaultColor(), ModBlocks.APPLE_LEAVES.get());
         }
 
         @SubscribeEvent
         public static void registerColoredItems(RegisterColorHandlersEvent.Item event){
             //event.register((pStack, pTintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.PILE_OF_LEAVES.get());
             event.register((pStack, pTintIndex) -> GrassColor.getDefaultColor(), ModBlocks.CATTAIL.get());
+            event.register((pStack, pTintIndex) -> FoliageColor.getDefaultColor(), ModBlocks.APPLE_LEAVES.get());
         }
 
         @SubscribeEvent

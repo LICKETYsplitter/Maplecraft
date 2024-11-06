@@ -24,11 +24,6 @@
   "block.maplecraft.stripped_maple_log": "Stripped Maple Log",
   "block.maplecraft.stripped_maple_wood": "Stripped Maple Wood",
   "block.maplecraft.maple_planks": "Maple Planks",
-  "block.maplecraft.sugar_maple_leaves": "Sugar Maple Leaves",
-  "block.maplecraft.red_maple_leaves": "Red Maple Leaves",
-  "block.maplecraft.red_maple_sapling": "Red Maple Sapling",
-  "block.maplecraft.sugar_maple_sapling": "Sugar Maple Sapling",
-
   "block.maplecraft.maple_stairs": "Maple Stairs",
   "block.maplecraft.maple_slab": "Maple Slab",
   "block.maplecraft.maple_button": "Maple Button",
@@ -37,6 +32,11 @@
   "block.maplecraft.maple_fence_gate": "Maple Fence Gate",
   "block.maplecraft.maple_door": "Maple Door",
   "block.maplecraft.maple_trapdoor": "Maple Trapdoor",
+
+  "block.maplecraft.sugar_maple_leaves": "Sugar Maple Leaves",
+  "block.maplecraft.red_maple_leaves": "Red Maple Leaves",
+  "block.maplecraft.red_maple_sapling": "Red Maple Sapling",
+  "block.maplecraft.sugar_maple_sapling": "Sugar Maple Sapling",
 
   "block.maplecraft.pile_of_leaves": "Pile of Leaves",
   "block.maplecraft.poison_ivy": "Poison Ivy",
@@ -47,5 +47,20 @@
   "block.maplecraft.aster": "Aster",
   "block.maplecraft.cattail": "Cattail",
 
-  "creativetab.maplecraft": "Maplecraft"
+  "creativetab.maplecraft": "Maplecraft",
+
+  "block.maplecraft.apple_log": "Apple Log",
+  "block.maplecraft.apple_wood": "Apple Wood",
+  "block.maplecraft.stripped_apple_log": "Stripped Apple Log",
+  "block.maplecraft.stripped_apple_wood": "Stripped Apple Wood",
+  "block.maplecraft.apple_planks": "Apple Planks",
+  "block.maplecraft.apple_stairs": "Apple Stairs",
+  "block.maplecraft.apple_slab": "Apple Slab",
+  "block.maplecraft.apple_button": "Apple Button",
+  "block.maplecraft.apple_pressure_plate": "Apple Pressure Plate",
+  "block.maplecraft.apple_fence": "Apple Fence",
+  "block.maplecraft.apple_fence_gate": "Apple Fence Gate",
+  "block.maplecraft.apple_door": "Apple Door",
+  "block.maplecraft.apple_trapdoor": "Apple Trapdoor",
+  "block.maplecraft.apple_leaves": "Apple Leaves"
 }

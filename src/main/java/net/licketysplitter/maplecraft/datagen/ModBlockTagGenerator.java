@@ -29,20 +29,34 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.MAPLE_LOG.get())
                 .add(ModBlocks.MAPLE_WOOD.get())
                 .add(ModBlocks.STRIPPED_MAPLE_LOG.get())
-                .add(ModBlocks.STRIPPED_MAPLE_WOOD.get());
+                .add(ModBlocks.STRIPPED_MAPLE_WOOD.get())
+
+                .add(ModBlocks.APPLE_LOG.get())
+                .add(ModBlocks.APPLE_WOOD.get())
+                .add(ModBlocks.STRIPPED_APPLE_LOG.get())
+                .add(ModBlocks.STRIPPED_APPLE_WOOD.get());
 
         this.tag(BlockTags.PLANKS)
-                .add(ModBlocks.MAPLE_PLANKS.get());
+                .add(ModBlocks.MAPLE_PLANKS.get())
+                .add(ModBlocks.APPLE_PLANKS.get());
 
         this.tag(BlockTags.FENCES)
-                .add(ModBlocks.MAPLE_FENCE.get());
+                .add(ModBlocks.MAPLE_FENCE.get())
+                .add(ModBlocks.APPLE_FENCE.get());
         this.tag(BlockTags.FENCE_GATES)
-                .add(ModBlocks.MAPLE_FENCE_GATE.get());
+                .add(ModBlocks.MAPLE_FENCE_GATE.get())
+                .add(ModBlocks.APPLE_FENCE_GATE.get());
 
         this.tag(ModTags.Blocks.MAPLE_LOGS)
                 .add(ModBlocks.MAPLE_LOG.get())
                 .add(ModBlocks.MAPLE_WOOD.get())
                 .add(ModBlocks.STRIPPED_MAPLE_LOG.get())
                 .add(ModBlocks.STRIPPED_MAPLE_WOOD.get());
+
+        this.tag(ModTags.Blocks.APPLE_LOGS)
+                .add(ModBlocks.APPLE_LOG.get())
+                .add(ModBlocks.APPLE_WOOD.get())
+                .add(ModBlocks.STRIPPED_APPLE_LOG.get())
+                .add(ModBlocks.STRIPPED_APPLE_WOOD.get());
     }
 }

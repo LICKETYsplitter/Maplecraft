@@ -29,6 +29,7 @@ public class ModCreativeModeTabs {
 
                         output.accept(ModBlocks.SUGAR_MAPLE_LEAVES.get());
                         output.accept(ModBlocks.RED_MAPLE_LEAVES.get());
+                        output.accept(ModBlocks.APPLE_LEAVES.get());
 
                         output.accept(ModBlocks.SUGAR_MAPLE_SAPLING.get());
                         output.accept(ModBlocks.RED_MAPLE_SAPLING.get());
@@ -60,6 +61,21 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.MAPLE_TRAPDOOR.get());
                         output.accept(ModBlocks.MAPLE_PRESSURE_PLATE.get());
                         output.accept(ModBlocks.MAPLE_BUTTON.get());
+
+                        output.accept(ModBlocks.APPLE_LOG.get());
+                        output.accept(ModBlocks.APPLE_WOOD.get());
+                        output.accept(ModBlocks.STRIPPED_APPLE_LOG.get());
+                        output.accept(ModBlocks.STRIPPED_APPLE_WOOD.get());
+
+                        output.accept(ModBlocks.APPLE_PLANKS.get());
+                        output.accept(ModBlocks.APPLE_STAIRS.get());
+                        output.accept(ModBlocks.APPLE_SLAB.get());
+                        output.accept(ModBlocks.APPLE_FENCE.get());
+                        output.accept(ModBlocks.APPLE_FENCE_GATE.get());
+                        output.accept(ModBlocks.APPLE_DOOR.get());
+                        output.accept(ModBlocks.APPLE_TRAPDOOR.get());
+                        output.accept(ModBlocks.APPLE_PRESSURE_PLATE.get());
+                        output.accept(ModBlocks.APPLE_BUTTON.get());
 
                         output.accept(ModItems.DEER_SPAWN_EGG.get());
 
