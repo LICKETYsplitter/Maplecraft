@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "maplecraft:wetland",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+
+    "salt": 1474877086,
+
+    "spacing": 12,
+
+    "separation": 4
+  }
+}

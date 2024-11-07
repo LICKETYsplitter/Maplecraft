@@ -99,6 +99,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //leavesBlocks(ModBlocks.APPLE_LEAVES);
         saplingBlock(ModBlocks.APPLE_SAPLING);
 
+        blockWithItem(ModBlocks.SINKING_MUD);
+
     }
 
     private void leavesBlocks(RegistryObject<Block> blockRegistryObject) {

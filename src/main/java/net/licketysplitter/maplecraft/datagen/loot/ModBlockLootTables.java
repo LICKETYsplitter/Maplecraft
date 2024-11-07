@@ -84,6 +84,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(ModBlocks.APPLE_LEAVES.get(), block ->
                 createLeavesDrops(block, ModBlocks.APPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         this.dropSelf(ModBlocks.APPLE_SAPLING.get());
+
+        this.dropSelf(ModBlocks.SINKING_MUD.get());
     }
 
     protected LootTable.Builder createSugarGlassDrop(Block pBlock, Item item) {

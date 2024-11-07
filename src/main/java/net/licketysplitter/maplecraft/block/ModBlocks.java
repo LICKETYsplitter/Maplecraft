@@ -333,6 +333,9 @@ public class ModBlocks {
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY)));
 
+    public static final RegistryObject<Block> SINKING_MUD = registerBlock("sinking_mud",
+            () -> new SinkingMud(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
+
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);

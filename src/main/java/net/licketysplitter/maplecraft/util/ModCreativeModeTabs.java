@@ -42,6 +42,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.ASTER.get());
                         output.accept(ModBlocks.CATTAIL.get());
 
+                        output.accept(ModBlocks.SINKING_MUD.get());
+
                         output.accept(ModBlocks.MAPLE_SYRUP_BLOCK.get());
 
                         output.accept(ModItems.MAPLE_SYRUP_BOTTLE.get());
