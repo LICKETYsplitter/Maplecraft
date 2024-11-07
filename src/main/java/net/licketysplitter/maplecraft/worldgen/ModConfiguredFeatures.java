@@ -2,6 +2,7 @@ package net.licketysplitter.maplecraft.worldgen;
 
 import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.ModBlocks;
+import net.licketysplitter.maplecraft.block.custom.AppleLeavesBlock;
 import net.licketysplitter.maplecraft.worldgen.biome.LeafCoverFeature;
 import net.licketysplitter.maplecraft.worldgen.biome.ModFeature;
 import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
@@ -65,6 +66,7 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_COVER = registerKey("leaf_cover");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_TREE = registerKey("apple_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WILD_APPLE_TREE = registerKey("wild_apple_tree");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context){
         createAllMaples(context, ModBlocks.RED_MAPLE_LEAVES.get(),
@@ -121,7 +123,8 @@ public class ModConfiguredFeatures {
 
         FeatureUtils.register(context, LEAF_COVER, ModFeature.LEAF_COVER.get());
 
-        FeatureUtils.register(context, APPLE_TREE, Feature.TREE, createApple().build());
+        FeatureUtils.register(context, APPLE_TREE, Feature.TREE, createApple(false).build());
+        FeatureUtils.register(context, WILD_APPLE_TREE, Feature.TREE, createApple(true).build());
 
     }
 
@@ -134,9 +137,9 @@ public class ModConfiguredFeatures {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder createApple(){
+    private static TreeConfiguration.TreeConfigurationBuilder createApple(boolean wild){
         return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.APPLE_LOG.get()),
-                new FancyTrunkPlacer(6, 2, 3), BlockStateProvider.simple(ModBlocks.APPLE_LEAVES.get().defaultBlockState()),
+                new FancyTrunkPlacer(6, 2, 3), BlockStateProvider.simple(ModBlocks.APPLE_LEAVES.get().defaultBlockState().setValue(AppleLeavesBlock.WILD, wild)),
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(2), ConstantInt.of(4), 0.5F, 0.0F, 0.25F, 0.0F),
                 new TwoLayersFeatureSize(1, 0, 2));
     }

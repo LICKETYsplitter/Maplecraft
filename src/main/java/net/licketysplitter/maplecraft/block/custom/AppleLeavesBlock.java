@@ -24,29 +24,38 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ForgeHooks;
 
+import java.util.Random;
+
 public class AppleLeavesBlock extends LeavesBlock implements BonemealableBlock {
     private static final int MAX_AGE = 3;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+    public static final BooleanProperty INERT = BooleanProperty.create("inert");
+    public static final BooleanProperty WILD = BooleanProperty.create("wild");
 
-    public AppleLeavesBlock(Properties p_54422_) {
+    public AppleLeavesBlock(Properties p_54422_, boolean inert) {
         super(p_54422_);
-        this.registerDefaultState(this.defaultBlockState().setValue(AGE, 0));
+        this.registerDefaultState(this.defaultBlockState()
+                .setValue(AGE, 0)
+                .setValue(INERT, inert)
+                .setValue(WILD, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         super.createBlockStateDefinition(pBuilder);
-        pBuilder.add(AGE);
+        pBuilder.add(AGE).add(INERT).add(WILD);
     }
 
     @Override
     protected boolean isRandomlyTicking(BlockState pState) {
-        return super.isRandomlyTicking(pState) || (!pState.getValue(PERSISTENT) && pState.getValue(AGE) != MAX_AGE);
+        return super.isRandomlyTicking(pState) ||
+                (!pState.getValue(PERSISTENT) && pState.getValue(AGE) != MAX_AGE && !pState.getValue(INERT));
     }
 
     @Override
@@ -68,6 +77,18 @@ public class AppleLeavesBlock extends LeavesBlock implements BonemealableBlock {
         ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
     }
 
+    public boolean exposedToAir(BlockPos blockPos, ServerLevel serverLevel){
+        BlockPos.MutableBlockPos mutableblockpos = blockPos.mutable();
+        for (Direction direction : Direction.values()) {
+            mutableblockpos.setWithOffset(blockPos, direction);
+            BlockState blockstate = serverLevel.getBlockState(mutableblockpos);
+            if (blockstate.is(Blocks.AIR)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private double getGrowthMultiplier(BlockState pstate, ServerLevel serverLevel, BlockPos blockPos){
         boolean exposedToAir = false;
         int sameStage = 0;
@@ -79,7 +100,7 @@ public class AppleLeavesBlock extends LeavesBlock implements BonemealableBlock {
             if(blockstate.is(Blocks.AIR)){
                 exposedToAir = true;
             }
-            else if (blockstate.is(this)){
+            else if (blockstate.is(this) && !blockstate.getValue(INERT)){
                 if(blockstate.getValue(AGE) >= pstate.getValue(AGE)){
                     sameStage++;
                 }

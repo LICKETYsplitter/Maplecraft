@@ -35,6 +35,8 @@ public class ModPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> LEAF_COVER = registerKey("leaf_cover");
 
+    public static final ResourceKey<PlacedFeature> APPLE_TREE = registerKey("apple_tree");
+
     public static void bootstrap(BootstrapContext<PlacedFeature> context){
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
@@ -83,6 +85,10 @@ public class ModPlacedFeatures {
         Holder<ConfiguredFeature<?, ?>> leafCover = configuredFeatures.getOrThrow(ModConfiguredFeatures.LEAF_COVER);
 
         PlacementUtils.register(context, LEAF_COVER, leafCover, BiomeFilter.biome());
+
+        register(context, APPLE_TREE, configuredFeatures.getOrThrow(ModConfiguredFeatures.WILD_APPLE_TREE),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1f, 0),
+                        ModBlocks.APPLE_SAPLING.get()));
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name){

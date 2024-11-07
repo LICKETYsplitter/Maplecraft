@@ -60,6 +60,7 @@ public class ModBiomes {
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
         BiomeDefaultFeatures.addCommonBerryBushes(biomeBuilder);
         biomeBuilder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ModPlacedFeatures.LEAF_COVER);
+        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.APPLE_TREE);
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
