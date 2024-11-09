@@ -1,5 +1,6 @@
 package net.licketysplitter.maplecraft.block.custom;
 
+import net.licketysplitter.maplecraft.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -39,6 +40,6 @@ public class CattailBlock extends TallFlowerBlock {
                 break; //No point continuing.
             }
         }
-        return state.is(Blocks.MUD) || (hasWater && super.canSustainPlant(state, world, pos, facing, plantable));
+        return state.is(Blocks.MUD) || state.is(ModBlocks.SINKING_MUD.get()) || (hasWater && super.canSustainPlant(state, world, pos, facing, plantable));
     }
 }

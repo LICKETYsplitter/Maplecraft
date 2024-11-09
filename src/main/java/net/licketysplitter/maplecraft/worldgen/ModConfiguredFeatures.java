@@ -3,21 +3,22 @@ package net.licketysplitter.maplecraft.worldgen;
 import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.ModBlocks;
 import net.licketysplitter.maplecraft.block.custom.AppleLeavesBlock;
-import net.licketysplitter.maplecraft.worldgen.biome.LeafCoverFeature;
 import net.licketysplitter.maplecraft.worldgen.biome.ModFeature;
-import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
@@ -25,12 +26,13 @@ import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.List;
 import java.util.OptionalInt;
@@ -68,6 +70,8 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> APPLE_TREE = registerKey("apple_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WILD_APPLE_TREE = registerKey("wild_apple_tree");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DISK_MUD = registerKey("disk_mud");
+
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context){
         createAllMaples(context, ModBlocks.RED_MAPLE_LEAVES.get(),
                 RED_MAPLE_KEY,
@@ -98,12 +102,7 @@ public class ModConfiguredFeatures {
                         PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                         new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.ASTER.get())))));
 
-        register(context,
-                CATTAIL_KEY,
-                Feature.FLOWER,
-                new RandomPatchConfiguration(32, 6, 2,
-                        PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAIL.get())))));
+        FeatureUtils.register( context, CATTAIL_KEY, ModFeature.CATTAIL.get());
 
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         Holder<PlacedFeature> fancyRed = placedFeatures.getOrThrow(ModPlacedFeatures.PLACEMENT_FANCY_RED_MAPLE);
@@ -125,6 +124,18 @@ public class ModConfiguredFeatures {
 
         FeatureUtils.register(context, APPLE_TREE, Feature.TREE, createApple(false).build());
         FeatureUtils.register(context, WILD_APPLE_TREE, Feature.TREE, createApple(true).build());
+
+        FeatureUtils.register(
+                context,
+                DISK_MUD,
+                Feature.DISK,
+                new DiskConfiguration(
+                        RuleBasedBlockStateProvider.simple(Blocks.MUD),
+                        BlockPredicate.matchesBlocks(List.of(Blocks.DIRT, Blocks.GRASS_BLOCK)),
+                        UniformInt.of(2, 5),
+                        2
+                )
+        );
 
     }
 

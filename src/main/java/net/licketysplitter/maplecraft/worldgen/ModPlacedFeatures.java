@@ -2,17 +2,19 @@ package net.licketysplitter.maplecraft.worldgen;
 
 import net.licketysplitter.maplecraft.MaplecraftMod;
 import net.licketysplitter.maplecraft.block.ModBlocks;
-import net.licketysplitter.maplecraft.worldgen.tree.ModTreePlacements;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.List;
 
@@ -37,6 +39,8 @@ public class ModPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> APPLE_TREE = registerKey("apple_tree");
 
+    public static final ResourceKey<PlacedFeature> DISK_MUD = registerKey("disk_mud");
+
     public static void bootstrap(BootstrapContext<PlacedFeature> context){
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
@@ -50,9 +54,10 @@ public class ModPlacedFeatures {
 
         register(context, ASTER_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.ASTER_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
-        register(context, CATTAIL_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.CATTAIL_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
 
+        PlacementUtils.register(
+                context, CATTAIL_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.CATTAIL_KEY), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+        );
 
         Holder<ConfiguredFeature<?, ?>> fancyRedMapleBees =
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.FANCY_RED_MAPLE_BEES_005_KEY);
@@ -89,6 +94,17 @@ public class ModPlacedFeatures {
         register(context, APPLE_TREE, configuredFeatures.getOrThrow(ModConfiguredFeatures.WILD_APPLE_TREE),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1f, 0),
                         ModBlocks.APPLE_SAPLING.get()));
+
+        PlacementUtils.register(
+                context,
+                DISK_MUD,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.DISK_MUD),
+                CountPlacement.of(3),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
+                BiomeFilter.biome()
+        );
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name){

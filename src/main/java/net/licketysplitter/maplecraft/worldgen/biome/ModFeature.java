@@ -14,6 +14,8 @@ public class ModFeature{
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> LEAF_COVER = FEATURES.register("leaf_cover",
             () -> new LeafCoverFeature(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> CATTAIL = FEATURES.register("cattail",
+            () -> new CattailFeature(NoneFeatureConfiguration.CODEC));
 
     public static void register(IEventBus eventBus) {
         FEATURES.register(eventBus);
