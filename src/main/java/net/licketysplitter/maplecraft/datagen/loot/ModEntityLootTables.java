@@ -34,6 +34,8 @@ public class ModEntityLootTables extends EntityLootSubProvider {
         this.add(ModEntities.DEER.get(), ModBuiltInLootTables.BUCK4, createDeerLootTables(ModItems.FOUR_POINT_ANTLER.get(), this));
         this.add(ModEntities.DEER.get(), ModBuiltInLootTables.BUCK6, createDeerLootTables(ModItems.SIX_POINT_ANTLER.get(), this));
         this.add(ModEntities.DEER.get(), ModBuiltInLootTables.BUCK8, createDeerLootTables(ModItems.EIGHT_POINT_ANTLER.get(), this));
+
+        this.add(ModEntities.WILLIWAW.get(), createWilliwawLootTables(this));
     }
     protected static LootTable.Builder createDeerLootTables(ModEntityLootTables modEntityLootTables){
         return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
@@ -49,6 +51,12 @@ public class ModEntityLootTables extends EntityLootSubProvider {
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(modEntityLootTables.registries, UniformGenerator.between(0.0F, 1.0F)))))
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(antler)))
                 .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
+    }
+
+    protected static LootTable.Builder createWilliwawLootTables(ModEntityLootTables modEntityLootTables){
+        return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f))
+                .add(LootItem.lootTableItem(ModItems.GREEN_APPLE.get()).apply(SetItemCountFunction.setCount(UniformGenerator
+                        .between(1.0F, 2.0F))).apply(EnchantedCountIncreaseFunction.lootingMultiplier(modEntityLootTables.registries, UniformGenerator.between(0.0F, 1.0F)))));
     }
 
     @Override

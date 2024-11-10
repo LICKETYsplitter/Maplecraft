@@ -28,6 +28,9 @@ public class ModItems {
     public static final RegistryObject<Item> DEER_SPAWN_EGG = ITEMS.register("deer_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.DEER, 0x8a6640, 0xf2e0ca,
                     new Item.Properties()));
+    public static final RegistryObject<Item> WILLIWAW_SPAWN_EGG = ITEMS.register("williwaw_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.WILLIWAW, 0xe38a1d, 0x6c722a,
+                    new Item.Properties()));
 
     public static final RegistryObject<Item> VENISON = ITEMS.register("venison",
             () -> new Item(new Item.Properties().food(ModFoodProperties.VENISON)));

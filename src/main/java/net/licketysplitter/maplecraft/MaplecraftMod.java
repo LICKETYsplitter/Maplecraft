@@ -6,6 +6,7 @@ import net.licketysplitter.maplecraft.block.entity.ModBlockEntities;
 import net.licketysplitter.maplecraft.block.entity.custom.EvaporatorBlockEntity;
 import net.licketysplitter.maplecraft.entity.ModEntities;
 import net.licketysplitter.maplecraft.entity.client.DeerRenderer;
+import net.licketysplitter.maplecraft.entity.client.williwaw.WilliwawRenderer;
 import net.licketysplitter.maplecraft.item.ModItems;
 import net.licketysplitter.maplecraft.particle.ModParticles;
 import net.licketysplitter.maplecraft.screen.EvaporatorScreen;
@@ -24,6 +25,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.FoliageColor;
@@ -162,6 +164,7 @@ public class MaplecraftMod {
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             EntityRenderers.register(ModEntities.DEER.get(), DeerRenderer::new);
+            EntityRenderers.register(ModEntities.WILLIWAW.get(), WilliwawRenderer::new);
             MenuScreens.register(ModMenuTypes.EVAPORATOR_MENU.get(), EvaporatorScreen::new);
         }
 

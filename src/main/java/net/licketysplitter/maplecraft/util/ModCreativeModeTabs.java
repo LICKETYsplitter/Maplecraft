@@ -81,11 +81,12 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.APPLE_PRESSURE_PLATE.get());
                         output.accept(ModBlocks.APPLE_BUTTON.get());
 
-                        output.accept(ModItems.DEER_SPAWN_EGG.get());
-
                         output.accept(ModItems.SAP_BUCKET.get());
 
                         output.accept(ModBlocks.EVAPORATOR.get());
+
+                        output.accept(ModItems.DEER_SPAWN_EGG.get());
+                        output.accept(ModItems.WILLIWAW_SPAWN_EGG.get());
                     }).build());
 
     public static void register(IEventBus eventBus){

@@ -5,6 +5,7 @@ import net.licketysplitter.maplecraft.entity.ModEntities;
 import net.licketysplitter.maplecraft.entity.client.DeerModel;
 import net.licketysplitter.maplecraft.entity.client.ModModelLayers;
 import net.licketysplitter.maplecraft.entity.custom.DeerEntity;
+import net.licketysplitter.maplecraft.entity.custom.Williwaw;
 import net.licketysplitter.maplecraft.particle.ModParticles;
 import net.licketysplitter.maplecraft.particle.custom.MapleParticle;
 import net.minecraft.world.entity.SpawnPlacementType;
@@ -29,6 +30,7 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.DEER.get(), DeerEntity.createAttributes().build());
+        event.put(ModEntities.WILLIWAW.get(), Williwaw.createAttributes().build());
     }
 
     @SubscribeEvent

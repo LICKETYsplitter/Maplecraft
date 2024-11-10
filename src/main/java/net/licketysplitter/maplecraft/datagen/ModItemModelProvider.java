@@ -43,6 +43,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
 
         withExistingParent(ModItems.DEER_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        withExistingParent(ModItems.WILLIWAW_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
 
         saplingItem(ModBlocks.RED_MAPLE_SAPLING);
         saplingItem(ModBlocks.SUGAR_MAPLE_SAPLING);
