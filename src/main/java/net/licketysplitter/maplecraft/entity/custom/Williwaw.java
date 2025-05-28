@@ -13,8 +13,12 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.breeze.BreezeAi;
+import net.minecraft.world.entity.monster.breeze.LongJump;
+import net.minecraft.world.entity.monster.breeze.Shoot;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.level.Level;
@@ -27,15 +31,13 @@ import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
 import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.attack.AnimatableMeleeAttack;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.attack.AnimatableRangedAttack;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.Idle;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetRandomWalkTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetWalkTargetToAttackTarget;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.target.InvalidateAttackTarget;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetPlayerLookTarget;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetRandomLookTarget;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.target.TargetOrRetaliate;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.target.*;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.HurtBySensor;
 import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyLivingEntitySensor;
@@ -73,8 +75,8 @@ public class Williwaw extends Monster implements SmartBrainOwner<Williwaw> {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.63F)
-                .add(Attributes.MAX_HEALTH, 30.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.3F)
+                .add(Attributes.MAX_HEALTH, 15.0)
                 .add(Attributes.FOLLOW_RANGE, 24.0)
                 .add(Attributes.ATTACK_DAMAGE, 3.0);
     }
@@ -285,16 +287,14 @@ public class Williwaw extends Monster implements SmartBrainOwner<Williwaw> {
     public List<ExtendedSensor<Williwaw>> getSensors() {
         return ObjectArrayList.of(
                 new NearbyLivingEntitySensor<>(),
-                new HurtBySensor<>()
-        );
+                new HurtBySensor<>());
     }
 
     @Override
     public BrainActivityGroup<Williwaw> getCoreTasks() {
         return BrainActivityGroup.coreTasks(
                 new LookAtTarget<>(),
-                new MoveToWalkTarget<>()
-        );
+                new MoveToWalkTarget<>());
     }
 
     @Override
@@ -306,17 +306,14 @@ public class Williwaw extends Monster implements SmartBrainOwner<Williwaw> {
                         new SetRandomLookTarget<>()),
                 new OneRandomBehaviour<>(
                         new SetRandomWalkTarget<>(),
-                        new Idle<>().runFor(entity -> entity.getRandom().nextInt(30, 60))
-                )
-        );
+                        new Idle<>().runFor(entity -> entity.getRandom().nextInt(30, 60))));
     }
 
     @Override
     public BrainActivityGroup<Williwaw> getFightTasks() {
         return BrainActivityGroup.fightTasks(
-                new InvalidateAttackTarget<>(),
+                new InvalidateAttackTarget(),
                 new SetWalkTargetToAttackTarget<>(),
-                new AnimatableMeleeAttack<>(0)
-        );
+                new AnimatableMeleeAttack<>(0));
     }
 }
