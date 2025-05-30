@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.licketysplitter.maplecraft.block.ModBlocks;
 import net.licketysplitter.maplecraft.block.entity.ModBlockEntities;
 import net.licketysplitter.maplecraft.block.entity.custom.EvaporatorBlockEntity;
+import net.licketysplitter.maplecraft.effect.ModEffects;
 import net.licketysplitter.maplecraft.entity.ModEntities;
 import net.licketysplitter.maplecraft.entity.client.DeerRenderer;
 import net.licketysplitter.maplecraft.entity.client.williwaw.WilliwawRenderer;
@@ -74,6 +75,7 @@ public class MaplecraftMod {
         ModTerrablender.registerBiomes();
         ModFeature.register(modEventBus);
         ModTrunkPlacerTypes.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);

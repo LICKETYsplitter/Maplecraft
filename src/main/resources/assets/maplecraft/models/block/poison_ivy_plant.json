@@ -1,0 +1,18 @@
+{
+    "ambientocclusion": false,
+    "render_type": "minecraft:cutout",
+    "textures": {
+        "particle": "maplecraft:block/poison_ivy_plant",
+        "poison_ivy_plant": "maplecraft:block/poison_ivy_plant"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0.8 ],
+            "to": [ 16, 16, 0.8 ],
+            "shade": false,
+            "faces": {
+                "north": { "uv": [ 16, 0, 0, 16 ], "texture": "#poison_ivy_plant" },
+                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#poison_ivy_plant" }
+            }
+        }
+    ]
+}

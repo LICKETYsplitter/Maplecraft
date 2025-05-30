@@ -1,5 +1,6 @@
 package net.licketysplitter.maplecraft.datagen.loot;
 
+import io.netty.util.Constant;
 import net.licketysplitter.maplecraft.block.ModBlocks;
 import net.licketysplitter.maplecraft.item.ModItems;
 import net.minecraft.core.HolderLookup;
@@ -11,11 +12,13 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.IntRange;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -60,7 +63,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SUGAR_MAPLE_SAPLING.get());
 
         this.dropSelf(ModBlocks.PILE_OF_LEAVES.get());
-        this.dropSelf(ModBlocks.POISON_IVY.get());
         this.dropSelf(ModBlocks.EVAPORATOR.get());
 
         this.dropSelf(ModBlocks.ASTER.get());
@@ -86,6 +88,10 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.APPLE_SAPLING.get());
 
         this.dropSelf(ModBlocks.SINKING_MUD.get());
+
+
+        this.add(ModBlocks.POISON_IVY.get(), createPoisonIvyDrop());
+        this.add(ModBlocks.POISON_IVY_PLANT.get(), createPoisonIvyDrop());
     }
 
     protected LootTable.Builder createSugarGlassDrop(Block pBlock, Item item) {
@@ -97,6 +103,14 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                                 .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
                                 .apply(LimitCount.limitCount(IntRange.range(3, 4)))));
     }
+
+    protected LootTable.Builder createPoisonIvyDrop(){
+            return LootTable.lootTable().withPool(
+                    LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(ModBlocks.POISON_IVY.get()).when(HAS_SHEARS)));
+    }
+
+
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;

@@ -1,5 +1,6 @@
 package net.licketysplitter.maplecraft.block.custom;
 
+
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.MapCodec;
 import net.licketysplitter.maplecraft.block.ModBlocks;
@@ -7,7 +8,6 @@ import net.licketysplitter.maplecraft.effect.ModEffects;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -25,20 +25,18 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.Tags;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class PoisonIvyBlock extends GrowingPlantHeadBlock implements IForgeShearable {
-    public static final MapCodec<PoisonIvyBlock> CODEC = simpleCodec(PoisonIvyBlock::new);
-    private static final VoxelShape WEST_AABB = Block.box(0.0, 0.0, 3.0, 1.0, 14.0, 13.0);
-    private static final VoxelShape EAST_AABB = Block.box(15.0, 0.0, 3.0, 16.0, 14.0, 13.0);
-    private static final VoxelShape NORTH_AABB = Block.box(3.0, 0.0, 0.0, 13.0, 14.0, 1.0);
-    private static final VoxelShape SOUTH_AABB = Block.box(3.0, 0.0, 15.0, 13.0, 14.0, 16.0);
+public class PoisonIvyPlantBlock extends GrowingPlantBodyBlock {
+    public static final MapCodec<PoisonIvyPlantBlock> CODEC = simpleCodec(PoisonIvyPlantBlock::new);
+    private static final VoxelShape WEST_AABB = Block.box(0.0, 0.0, 3.0, 1.0, 16.0, 13.0);
+    private static final VoxelShape EAST_AABB = Block.box(15.0, 0.0, 3.0, 16.0, 16.0, 13.0);
+    private static final VoxelShape NORTH_AABB = Block.box(3.0, 0.0, 0.0, 13.0, 16.0, 1.0);
+    private static final VoxelShape SOUTH_AABB = Block.box(3.0, 0.0, 15.0, 13.0, 16.0, 16.0);
     private final Map<BlockState, VoxelShape> shapesCache;
 
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
@@ -51,13 +49,8 @@ public class PoisonIvyBlock extends GrowingPlantHeadBlock implements IForgeShear
             .filter(p_57886_ ->  p_57886_.getKey() != Direction.DOWN && p_57886_.getKey() != Direction.UP)
             .collect(Util.toMap());
 
-    @Override
-    public MapCodec<PoisonIvyBlock> codec() {
-        return CODEC;
-    }
-
-    public PoisonIvyBlock(BlockBehaviour.Properties p_154864_) {
-        super(p_154864_, Direction.UP, NORTH_AABB, false, 0.1);
+    public PoisonIvyPlantBlock(BlockBehaviour.Properties properties) {
+        super(properties, Direction.UP, NORTH_AABB, false);
 
         this.registerDefaultState(
                 this.stateDefinition
@@ -66,7 +59,7 @@ public class PoisonIvyBlock extends GrowingPlantHeadBlock implements IForgeShear
                         .setValue(EAST, false)
                         .setValue(SOUTH, false)
                         .setValue(WEST, false));
-        this.shapesCache = ImmutableMap.copyOf(this.stateDefinition.getPossibleStates().stream().collect(Collectors.toMap(Function.identity(), PoisonIvyBlock::calculateShape)));
+        this.shapesCache = ImmutableMap.copyOf(this.stateDefinition.getPossibleStates().stream().collect(Collectors.toMap(Function.identity(), PoisonIvyPlantBlock::calculateShape)));
 
     }
 
@@ -125,7 +118,6 @@ public class PoisonIvyBlock extends GrowingPlantHeadBlock implements IForgeShear
         return pState.isFaceSturdy(pLevel, pPos, Direction.UP) ||
                 pState.is(ModBlocks.POISON_IVY.get()) || pState.is(ModBlocks.POISON_IVY_PLANT.get());
     }
-
     private boolean hasFaces(BlockState pState) {
         return this.countFaces(pState) > 0;
     }
@@ -173,29 +165,9 @@ public class PoisonIvyBlock extends GrowingPlantHeadBlock implements IForgeShear
         return blockstate.is(this) ? this.countFaces(blockstate) < PROPERTY_BY_DIRECTION.size() : super.canBeReplaced(pState, pUseContext);
     }
 
-    @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos());
-        boolean flag = blockstate.is(this);
-        BlockState blockstate1 = flag ? blockstate : this.defaultBlockState();
-        boolean flag2 =  true;
-        if(blockstate.is(ModBlocks.POISON_IVY.get()) || blockstate.is(ModBlocks.POISON_IVY_PLANT.get())) {
-            flag2 = !(blockstate.getValue(NORTH).booleanValue() || blockstate.getValue(SOUTH).booleanValue() ||
-                    blockstate.getValue(EAST).booleanValue() || blockstate.getValue(WEST).booleanValue());
-        }
-
-        for (Direction direction : pContext.getNearestLookingDirections()) {
-            if (direction != Direction.DOWN && direction != Direction.UP ) {
-                BooleanProperty booleanproperty = getPropertyForFace(direction);
-                boolean flag1 = flag && blockstate.getValue(booleanproperty);
-                if (!flag1 && this.canSupportAtFace(pContext.getLevel(), pContext.getClickedPos(), direction) && flag2) {
-                    return blockstate1.setValue(booleanproperty, Boolean.valueOf(true));
-                }
-            }
-        }
-
-        return flag ? blockstate1 : null;
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(NORTH, EAST, SOUTH, WEST);
     }
 
     @Override
@@ -203,32 +175,15 @@ public class PoisonIvyBlock extends GrowingPlantHeadBlock implements IForgeShear
         return this.shapesCache.get(pState);
     }
 
+
     @Override
-    protected int getBlocksToGrowWhenBonemealed(RandomSource pRandom) {
-        double d0 = 1.0;
-
-        int i;
-        for (i = 0; pRandom.nextDouble() < d0; i++) {
-            d0 *= 0.826;
-        }
-
-        return i;
+    protected MapCodec<PoisonIvyPlantBlock> codec() {
+        return CODEC;
     }
 
     @Override
-    protected Block getBodyBlock() {
-        return ModBlocks.POISON_IVY_PLANT.get();
-    }
-
-    @Override
-    protected boolean canGrowInto(BlockState p_154869_) {
-        return p_154869_.is(Blocks.AIR);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(NORTH, EAST, SOUTH, WEST);
-        pBuilder.add(AGE);
+    protected GrowingPlantHeadBlock getHeadBlock() {
+        return (GrowingPlantHeadBlock) ModBlocks.POISON_IVY.get();
     }
 
     @Override
@@ -242,7 +197,7 @@ public class PoisonIvyBlock extends GrowingPlantHeadBlock implements IForgeShear
     }
 
     @Override
-    protected BlockState updateBodyAfterConvertedFromHead(BlockState pHead, BlockState pBody) {
+    protected BlockState updateHeadAfterConvertedFromBody(BlockState pHead, BlockState pBody) {
         return pBody.setValue(NORTH, pHead.getValue(NORTH))
                 .setValue(SOUTH, pHead.getValue(SOUTH))
                 .setValue(EAST, pHead.getValue(EAST))
@@ -275,6 +230,4 @@ public class PoisonIvyBlock extends GrowingPlantHeadBlock implements IForgeShear
             player.addEffect(new MobEffectInstance(ModEffects.ITCHY_EFFECT.getHolder().get(), 36000, 0));
         }
     }
-
-
 }

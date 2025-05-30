@@ -22,7 +22,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -309,6 +308,15 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> POISON_IVY = registerBlock("poison_ivy",
             () -> new PoisonIvyBlock(BlockBehaviour.Properties.of()
+                    .replaceable()
+                    .noOcclusion()
+                    .strength(0.2F)
+                    .sound(SoundType.GLOW_LICHEN)
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final RegistryObject<Block> POISON_IVY_PLANT = registerBlock("poison_ivy_plant",
+            () -> new PoisonIvyPlantBlock(BlockBehaviour.Properties.of()
                     .replaceable()
                     .noOcclusion()
                     .strength(0.2F)

@@ -67,5 +67,7 @@
   "block.maplecraft.apple_leaves": "Apple Leaves",
   "block.maplecraft.apple_sapling": "Apple Sapling",
 
-  "block.maplecraft.sinking_mud": "Sinking Mud"
+  "block.maplecraft.sinking_mud": "Sinking Mud",
+
+  "effect.maplecraft.itchy": "Itchy"
 }
