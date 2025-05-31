@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "maplecraft:block/poison_ivy"
+        "model": "maplecraft:block/poison_ivy_plant"
       },
       "when": {
         "north": "true"
@@ -10,7 +10,7 @@
     },
     {
       "apply": {
-        "model": "maplecraft:block/poison_ivy"
+        "model": "maplecraft:block/poison_ivy_plant"
       },
       "when": {
         "east": "false",
