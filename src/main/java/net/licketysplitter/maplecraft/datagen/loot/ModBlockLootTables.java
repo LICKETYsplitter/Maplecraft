@@ -2,26 +2,37 @@ package net.licketysplitter.maplecraft.datagen.loot;
 
 import io.netty.util.Constant;
 import net.licketysplitter.maplecraft.block.ModBlocks;
+import net.licketysplitter.maplecraft.block.custom.CattailBlock;
 import net.licketysplitter.maplecraft.item.ModItems;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.SeaPickleBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.List;
 import java.util.Set;
 
 public class ModBlockLootTables extends BlockLootSubProvider {
@@ -65,8 +76,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.PILE_OF_LEAVES.get());
         this.dropSelf(ModBlocks.EVAPORATOR.get());
 
-        this.dropSelf(ModBlocks.ASTER.get());
-        this.dropSelf(ModBlocks.CATTAIL.get());
+        this.add(ModBlocks.ASTER.get(), block -> createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+        this.add(ModBlocks.CATTAIL.get(), createCattailsDrop());
 
         this.dropSelf(ModBlocks.APPLE_LOG.get());
         this.dropSelf(ModBlocks.APPLE_WOOD.get());
@@ -108,6 +119,32 @@ public class ModBlockLootTables extends BlockLootSubProvider {
             return LootTable.lootTable().withPool(
                     LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(ModBlocks.POISON_IVY.get()).when(HAS_SHEARS)));
+    }
+
+    protected LootTable.Builder createCattailsDrop(){
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        (LootPoolEntryContainer.Builder<?>)this.applyExplosionDecay(
+                                                ModBlocks.CATTAIL.get(),
+                                                LootItem.lootTableItem(ModBlocks.CATTAIL.get())
+                                                        .apply(
+                                                                List.of(2, 3, 4),
+                                                                blockState -> SetItemCountFunction.setCount(ConstantValue.exactly((float)blockState.intValue()))
+                                                                        .when(
+                                                                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.CATTAIL.get())
+                                                                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CattailBlock.CATTAILS, blockState))
+                                                                        )
+                                                        )
+                                                        .when(
+                                                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.CATTAIL.get())
+                                                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+                                                        )
+                                        )
+                                )
+                );
     }
 
 

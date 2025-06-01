@@ -1,10 +1,124 @@
 {
   "variants": {
-    "half=lower": {
-      "model": "maplecraft:block/cattail_bottom"
+    "half=lower,cattails=1,facing=north": {
+      "model": "maplecraft:block/cattail_1_bottom"
     },
-    "half=upper": {
-      "model": "maplecraft:block/cattail_top"
+    "half=lower,cattails=2,facing=north": {
+      "model": "maplecraft:block/cattail_2_bottom"
+    },
+    "half=lower,cattails=3,facing=north": {
+      "model": "maplecraft:block/cattail_3_bottom"
+    },
+    "half=lower,cattails=4,facing=north": {
+      "model": "maplecraft:block/cattail_4_bottom"
+    },
+    "half=upper,cattails=1,facing=north": {
+      "model": "maplecraft:block/cattail_1_top"
+    },
+    "half=upper,cattails=2,facing=north": {
+      "model": "maplecraft:block/cattail_2_top"
+    },
+    "half=upper,cattails=3,facing=north": {
+      "model": "maplecraft:block/cattail_3_top"
+    },
+    "half=upper,cattails=4,facing=north": {
+      "model": "maplecraft:block/cattail_4_top"
+    },
+    "half=lower,cattails=1,facing=east": {
+      "model": "maplecraft:block/cattail_1_bottom",
+      "y": 90
+    },
+    "half=lower,cattails=2,facing=east": {
+      "model": "maplecraft:block/cattail_2_bottom",
+      "y": 90
+    },
+    "half=lower,cattails=3,facing=east": {
+      "model": "maplecraft:block/cattail_3_bottom",
+      "y": 90
+    },
+    "half=lower,cattails=4,facing=east": {
+      "model": "maplecraft:block/cattail_4_bottom",
+      "y": 90
+    },
+    "half=upper,cattails=1,facing=east": {
+      "model": "maplecraft:block/cattail_1_top",
+      "y": 90
+    },
+    "half=upper,cattails=2,facing=east": {
+      "model": "maplecraft:block/cattail_2_top",
+      "y": 90
+    },
+    "half=upper,cattails=3,facing=east": {
+      "model": "maplecraft:block/cattail_3_top",
+      "y": 90
+    },
+    "half=upper,cattails=4,facing=east": {
+      "model": "maplecraft:block/cattail_4_top",
+      "y": 90
+    },
+    "half=lower,cattails=1,facing=south": {
+      "model": "maplecraft:block/cattail_1_bottom",
+      "y": 180
+    },
+    "half=lower,cattails=2,facing=south": {
+      "model": "maplecraft:block/cattail_2_bottom",
+      "y": 180
+    },
+    "half=lower,cattails=3,facing=south": {
+      "model": "maplecraft:block/cattail_3_bottom",
+      "y": 180
+    },
+    "half=lower,cattails=4,facing=south": {
+      "model": "maplecraft:block/cattail_4_bottom",
+      "y": 180
+    },
+    "half=upper,cattails=1,facing=south": {
+      "model": "maplecraft:block/cattail_1_top",
+      "y": 180
+    },
+    "half=upper,cattails=2,facing=south": {
+      "model": "maplecraft:block/cattail_2_top",
+      "y": 180
+    },
+    "half=upper,cattails=3,facing=south": {
+      "model": "maplecraft:block/cattail_3_top",
+      "y": 180
+    },
+    "half=upper,cattails=4,facing=south": {
+      "model": "maplecraft:block/cattail_4_top",
+      "y": 180
+    },
+    "half=lower,cattails=1,facing=west": {
+      "model": "maplecraft:block/cattail_1_bottom",
+      "y": 270
+    },
+    "half=lower,cattails=2,facing=west": {
+      "model": "maplecraft:block/cattail_2_bottom",
+      "y": 270
+    },
+    "half=lower,cattails=3,facing=west": {
+      "model": "maplecraft:block/cattail_3_bottom",
+      "y": 270
+    },
+    "half=lower,cattails=4,facing=west": {
+      "model": "maplecraft:block/cattail_4_bottom",
+      "y": 270
+    },
+    "half=upper,cattails=1,facing=west": {
+      "model": "maplecraft:block/cattail_1_top",
+      "y": 270
+    },
+    "half=upper,cattails=2,facing=west": {
+      "model": "maplecraft:block/cattail_2_top",
+      "y": 270
+    },
+    "half=upper,cattails=3,facing=west": {
+      "model": "maplecraft:block/cattail_3_top",
+      "y": 270
+    },
+    "half=upper,cattails=4,facing=west": {
+      "model": "maplecraft:block/cattail_4_top",
+      "y": 270
     }
   }
 }
