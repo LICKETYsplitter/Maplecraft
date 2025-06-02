@@ -3,6 +3,7 @@ package net.licketysplitter.maplecraft.datagen.loot;
 import io.netty.util.Constant;
 import net.licketysplitter.maplecraft.block.ModBlocks;
 import net.licketysplitter.maplecraft.block.custom.CattailBlock;
+import net.licketysplitter.maplecraft.block.custom.FloweringAppleLeavesBlock;
 import net.licketysplitter.maplecraft.item.ModItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
@@ -11,12 +12,10 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.SeaPickleBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.IntRange;
@@ -24,9 +23,11 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -96,6 +97,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 block -> createDoorTable(ModBlocks.APPLE_DOOR.get()));
         this.add(ModBlocks.APPLE_LEAVES.get(), block ->
                 createLeavesDrops(block, ModBlocks.APPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.FLOWERING_APPLE_LEAVES.get(), createFloweringAppleLeavesDrops());
         this.dropSelf(ModBlocks.APPLE_SAPLING.get());
 
         this.dropSelf(ModBlocks.SINKING_MUD.get());
@@ -147,6 +149,32 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 );
     }
 
+    protected LootTable.Builder createFloweringAppleLeavesDrops() {
+        return super.createLeavesDrops(ModBlocks.FLOWERING_APPLE_LEAVES.get(), ModBlocks.APPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .when(HAS_SHEARS.or(super.hasSilkTouch().invert()))
+                                .add(
+                                        ((LootPoolSingletonContainer.Builder<?>)this.applyExplosionCondition(ModBlocks.FLOWERING_APPLE_LEAVES.get(), LootItem.lootTableItem(Items.APPLE)))
+                                                .when(
+                                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.FLOWERING_APPLE_LEAVES.get())
+                                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FloweringAppleLeavesBlock.AGE, 3))
+                                                )
+                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.FLOWERING_APPLE_LEAVES.get())
+                                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LeavesBlock.PERSISTENT, false)))
+                                )
+                                .add(
+                                        ((LootPoolSingletonContainer.Builder<?>)this.applyExplosionCondition(ModBlocks.FLOWERING_APPLE_LEAVES.get(), LootItem.lootTableItem(ModItems.GREEN_APPLE.get())))
+                                                .when(
+                                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.FLOWERING_APPLE_LEAVES.get())
+                                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(FloweringAppleLeavesBlock.AGE, 2))
+                                                )
+                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.FLOWERING_APPLE_LEAVES.get())
+                                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LeavesBlock.PERSISTENT, false)))
+                                )
+                );
+    }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {

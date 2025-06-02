@@ -278,7 +278,9 @@ public class ModBlocks {
             () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
 
     public static final RegistryObject<Block> APPLE_LEAVES = registerBlock("apple_leaves",
-            () -> new AppleLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), false) {
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> FLOWERING_APPLE_LEAVES = registerBlock("flowering_apple_leaves",
+            () -> new FloweringAppleLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), false) {
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return true;

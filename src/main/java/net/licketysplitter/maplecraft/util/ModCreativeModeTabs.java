@@ -30,6 +30,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.SUGAR_MAPLE_LEAVES.get());
                         output.accept(ModBlocks.RED_MAPLE_LEAVES.get());
                         output.accept(ModBlocks.APPLE_LEAVES.get());
+                        output.accept(ModBlocks.FLOWERING_APPLE_LEAVES.get());
 
                         output.accept(ModBlocks.SUGAR_MAPLE_SAPLING.get());
                         output.accept(ModBlocks.RED_MAPLE_SAPLING.get());

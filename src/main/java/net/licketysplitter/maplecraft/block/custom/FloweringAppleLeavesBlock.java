@@ -7,13 +7,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -24,48 +24,43 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ForgeHooks;
 
-import java.util.Random;
-
-public class AppleLeavesBlock extends LeavesBlock implements BonemealableBlock {
+public class FloweringAppleLeavesBlock extends LeavesBlock implements BonemealableBlock {
     private static final int MAX_AGE = 3;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
-    public static final BooleanProperty INERT = BooleanProperty.create("inert");
-    public static final BooleanProperty WILD = BooleanProperty.create("wild");
 
-    public AppleLeavesBlock(Properties p_54422_, boolean inert) {
+    public FloweringAppleLeavesBlock(Properties p_54422_, boolean inert) {
         super(p_54422_);
         this.registerDefaultState(this.defaultBlockState()
-                .setValue(AGE, 0)
-                .setValue(INERT, inert)
-                .setValue(WILD, false));
+                .setValue(AGE, 0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         super.createBlockStateDefinition(pBuilder);
-        pBuilder.add(AGE).add(INERT).add(WILD);
+        pBuilder.add(AGE);
     }
 
     @Override
     protected boolean isRandomlyTicking(BlockState pState) {
         return super.isRandomlyTicking(pState) ||
-                (!pState.getValue(PERSISTENT) && pState.getValue(AGE) != MAX_AGE && !pState.getValue(INERT));
+                (!pState.getValue(PERSISTENT) && pState.getValue(AGE) != MAX_AGE );
     }
 
     @Override
     protected void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        super.randomTick(pState, pLevel, pPos, pRandom);
-        double growthMultiplier = getGrowthMultiplier(pState, pLevel, pPos);
-        if(growthMultiplier >= 1.0){
-            if(pLevel.getRawBrightness(pPos.above(), 0) >= 9 &&
-                    ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int)(10)) == 0)){
-                grow(pState, pLevel, pPos);
+        if(!pState.getValue(PERSISTENT)) {
+            super.randomTick(pState, pLevel, pPos, pRandom);
+            double growthMultiplier = getGrowthMultiplier(pState, pLevel, pPos);
+            if (growthMultiplier >= 1.0) {
+                if (pLevel.getRawBrightness(pPos.above(), 0) >= 9 &&
+                        ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt((int) (10)) == 0)) {
+                    grow(pState, pLevel, pPos);
+                }
             }
         }
     }
@@ -75,18 +70,6 @@ public class AppleLeavesBlock extends LeavesBlock implements BonemealableBlock {
         pLevel.setBlock(pPos, blockstate, 2);
         pLevel.gameEvent(GameEvent.BLOCK_CHANGE, pPos, GameEvent.Context.of(blockstate));
         ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
-    }
-
-    public boolean exposedToAir(BlockPos blockPos, ServerLevel serverLevel){
-        BlockPos.MutableBlockPos mutableblockpos = blockPos.mutable();
-        for (Direction direction : Direction.values()) {
-            mutableblockpos.setWithOffset(blockPos, direction);
-            BlockState blockstate = serverLevel.getBlockState(mutableblockpos);
-            if (blockstate.is(Blocks.AIR)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private double getGrowthMultiplier(BlockState pstate, ServerLevel serverLevel, BlockPos blockPos){
@@ -100,7 +83,7 @@ public class AppleLeavesBlock extends LeavesBlock implements BonemealableBlock {
             if(blockstate.is(Blocks.AIR)){
                 exposedToAir = true;
             }
-            else if (blockstate.is(this) && !blockstate.getValue(INERT)){
+            else if (blockstate.is(this)){
                 if(blockstate.getValue(AGE) >= pstate.getValue(AGE)){
                     sameStage++;
                 }
@@ -156,5 +139,10 @@ public class AppleLeavesBlock extends LeavesBlock implements BonemealableBlock {
     @Override
     public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
         grow(pState, pLevel, pPos);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return super.getStateForPlacement(pContext).setValue(AGE, 1);
     }
 }
